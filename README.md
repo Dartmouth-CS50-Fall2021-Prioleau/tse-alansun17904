@@ -1,4 +1,4 @@
-# Your name
+# Alan Sun
 ## CS50 Fall 2021, Tiny Search Engine
 
 GitHub username:
