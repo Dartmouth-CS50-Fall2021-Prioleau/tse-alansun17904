@@ -61,7 +61,28 @@ http://cs50tse.cs.dartmouth.edu/
 </pre><hr></body>
 ```
 ### Pseudo-Code
+This subsection describes my basic idea for implementing this program. It contains
+some pseudo-code which may make it easier to understand for the reader. Please
+note that in the pseudo-code I will be refering to the `bag` and `hashtable` 
+datastructures in the `libcs50` library. A `bag` is simply defined as an 
+unordered collection, its order of extraction is also undefined. On the otherhand,
+a hashtable stores keys and values, the catch is that its keys must be unique.
+With this we proceed to display the pseudo-code:
+```
+<start of program>
 
+check if the arguments given are valid:
+  there must be exactly three provided arguments
+  the given url must be a valid url AND it must also be an internal one
+  the given directory must be writable
+  the given depth must be nonnegative
+
+from this point all arguments are assumed to be valid
+we begin crawling the root first
+
+
+<end of program>
+```
 
 ## Assumptions
 - `MAX_DEPTH` must be provided as a valid integer input. Arguments that are
@@ -69,7 +90,8 @@ examples are invalid integer input are `20a` or `b4e4`. In such cases, the
 behavior of the program is undefined and could also lead to errors.
 - If a website's HTML could not be fetched at any given time it is ignored
 and all of its neighbors will also be ignored. However, the program will
-continue with 
+continue by crawling the remaining websites which conform to the given 
+arguments.
 
 ## Security and Privacy 
 
