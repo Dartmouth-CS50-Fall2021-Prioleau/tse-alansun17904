@@ -30,7 +30,7 @@ The author recommends running the following sequence of commands to test the pro
 without memory checking:
 ```bash
 make clean
-./testing.sh  &> testing.out
+./testing.sh &> testing.out
 ```
 Otherwise, if the user desires memory to be checked, simply pass in `valgrind` as one of
 the program arguments into `testing.sh`:
