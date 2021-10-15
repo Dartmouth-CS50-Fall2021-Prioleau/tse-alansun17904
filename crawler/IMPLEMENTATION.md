@@ -106,11 +106,26 @@ behavior of the program is undefined and could also lead to errors.
 and all of its neighbors will also be ignored. However, the program will
 continue by crawling the remaining websites which conform to the given 
 arguments.
+- Suppose that memory allocation fails at any point, then the program will 
+simply terminate without freeing any existing memory. If this happens, such
+edge cases may yield memory leaks.
 
 ## Security and Privacy 
+As acknowledged from the start, we are only crawling websites that are
+specifically designed for this project. This will not only make the behavior
+of the crawler more well defined and easier to test, but it also ensures
+that we are not crawling random websites without permission. Please note that
+the program will access the given directory on the user's machine and export
+files to this directory.
 
 ## Error Handling and Recovery
-
-## Resource Management
+- On any errors associated with the given arguments, the program will print a
+message to `stderr` and it will terminate.
+- If there are any errors with memory allocation, the program will print a 
+message to `stderr` and it will terminate immediately. This edge case may 
+result in memory leaks.
 
 ## Persistent Storage
+As stated in the introduction as well as usage. The function will write out 
+the contents of the HTML pages into the given directory. These pages will then
+be continually used for the other parts of the project: indexer and query.
