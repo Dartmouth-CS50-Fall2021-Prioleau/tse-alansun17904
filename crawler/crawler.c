@@ -66,6 +66,7 @@ static void crawl(char *root, char *path, int max_depth);
  */
 int main(int argc, char* argv[]) {
   int depth; 
+  char *root;
 
   // Check argument length. There must be exactly 3 arguments.
   if (argc != 4) {
@@ -88,7 +89,12 @@ int main(int argc, char* argv[]) {
   /* We hand-off to the crawler defined below. This implements all of the main 
    * functionality, assuming that the arguments given are all valid.
    */
-  crawl(argv[1], argv[2], depth);
+  /* Malloc memory for root so that it can be collectively freed using
+   * webpage_delete.
+   */
+  root = malloc(strlen(argv[1]) + 1);
+  strcpy(root, argv[1]);
+  crawl(root, argv[2], depth);
   return 0;
 }
 
@@ -237,6 +243,7 @@ static void crawl(char *root, char *path, int max_depth)
       fprintf(stderr, "The webpage %s either does"
           "not point to HTML or cannot be opened\n", webpage_getURL(next)); 
     }
+    webpage_delete(next);
   }
   hashtable_delete(visited, NULL);
   bag_delete(bag, webpage_delete);

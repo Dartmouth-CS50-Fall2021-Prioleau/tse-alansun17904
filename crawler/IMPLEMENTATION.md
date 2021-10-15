@@ -109,6 +109,7 @@ arguments.
 - Suppose that memory allocation fails at any point, then the program will 
 simply terminate without freeing any existing memory. If this happens, such
 edge cases may yield memory leaks.
+- For URLs such as `http://cs50tse.cs.dartmouth.edu/tse/letters/` and `http://cs50tse.cs.dartmouth.edu/tse/letters/index.html` even though they really point to the same page, we treat them as different webpages.
 
 ## Security and Privacy 
 As acknowledged from the start, we are only crawling websites that are

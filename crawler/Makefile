@@ -17,4 +17,5 @@ crawler.o: crawler.c ../libcs50/webpage.h ../common/pagedir.h ../libcs50/hashtab
 	$(CC) $(CFLAGS) -c crawler.c
 
 clean:
+	rm -rf test2 test3
 	rm -rf *.x *.o
