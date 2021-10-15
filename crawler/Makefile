@@ -13,7 +13,7 @@ LIBS = ../libcs50/libcs50.a ../common/common.a
 crawler.x: crawler.o $(LIBS)
 	$(CC) crawler.o $(LIBS) -o crawler.x
 
-crawler.o: crawler.c crawler.h
+crawler.o: crawler.c ../libcs50/webpage.h ../common/pagedir.h ../libcs50/hashtable.h ../libcs50/bag.h
 	$(CC) $(CFLAGS) -c crawler.c
 
 clean:
