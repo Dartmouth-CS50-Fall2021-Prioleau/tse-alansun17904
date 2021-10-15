@@ -77,9 +77,23 @@ check if the arguments given are valid:
   the given directory must be writable
   the given depth must be nonnegative
 
-from this point all arguments are assumed to be valid
-we begin crawling the root first
+create hashtable of visited websites
+create bag of websites to be visited
 
+from this point all arguments are assumed to be valid
+<start loop>
+
+we begin crawling the root first
+  export the content of the root into file id=1
+  add the root to the hashtable denoting visited websites
+  
+  if the depth of root is less than max_depth:
+    add all internal, unvisited links root is connected to to bag
+
+  extract link from the bag and crawl that link
+  continue until either the bag is empty or max_depth is reached
+
+<end loop>
 
 <end of program>
 ```
