@@ -93,6 +93,7 @@ int main(int argc, char* argv[]) {
    * webpage_delete.
    */
   root = malloc(strlen(argv[1]) + 1);
+  assertp(root, "Could not allocate memory for root URL.");
   strcpy(root, argv[1]);
   crawl(root, argv[2], depth);
   return 0;

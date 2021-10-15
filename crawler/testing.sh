@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 # Alan Sun
 # CS50, Fall 2021, Tiny Search Engine: Crawler
 # Crawler Tester (testing.sh)
@@ -9,29 +9,33 @@
 # the test program will require. It is up to the tester to actually inspect
 # the outputs of the test program to see if crawler is valid.
 
-if [[ -v MEM_CHECK ]]; then 
-        mem = "valgrind"
-else
-        mem = ""
-fi 
-
-echo $mem
-
 # Test Invalid Arguments
 mkdir test1
-valgrind ./crawler.x https://www.google.com/ test1 0
-valgrind ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ test1 -1
-valgrind ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ nonexistent 0
-valgrind ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ nonexistent -1
+$1 ./crawler.x hello
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ 0 hello
+$1 ./crawler.x https://www.google.com/ test1 0
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ test1 -1
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ nonexistent 0
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ nonexistent -1
 rm -r test1
 
 # Test Root Only
-# mkdir test1
-# valgrind ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ test1 0
+mkdir test1
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/ test1 0
 
 # Test Non-Internal URL on Multi-Depth
 mkdir test2
-valgrind --leak-check=full ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/wikipedia/ test2 1 
+# 7 pages
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/wikipedia/ test2 1 
+
 mkdir test3
-valgrind ./crawler.x \
-        http://cs50tse.cs.dartmouth.edu/tse-output/letters-depth-0/1 test3 4
+# should only be one page
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse-output/letters-depth-0/1 test3 4
+
+# Test Cyclic Links
+mkdir test4
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/letters/ test4 10
+
+# Test Many Repeated Links 
+mkdir test5
+$1 ./crawler.x http://cs50tse.cs.dartmouth.edu/tse/toscrape/ test5 1
