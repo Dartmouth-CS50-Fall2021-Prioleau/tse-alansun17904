@@ -24,6 +24,7 @@ typedef struct bagnode {
 /**************** global types ****************/
 typedef struct bag {
   struct bagnode *head;       // head of the list of items in bag
+  struct bagnode *tail;
 } bag_t;
 
 /**************** global functions ****************/
