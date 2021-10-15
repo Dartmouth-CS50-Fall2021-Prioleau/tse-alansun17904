@@ -234,9 +234,17 @@ static void crawl(char *root, char *path, int max_depth)
            * is an internal one, and if we have already visited the node.
            */
           if (IsInternalURL(next_url) &&
-              hashtable_insert(visited, next_url, ".")) 
+              hashtable_insert(visited, next_url, ".")) {
             bag_insert(bag, webpage_new(next_url, 
                   webpage_getDepth(next) + 1, NULL));
+          } else {
+            /* Since webpage_getNextURL callocs a some space for the returned
+             * url, then it needs to be freed. If the url is invalid then we
+             * free it right away instead of waiting for webpage delete to
+             * free it.
+             */
+            free(next_url);
+          }
         }
       }
       
@@ -244,6 +252,8 @@ static void crawl(char *root, char *path, int max_depth)
       fprintf(stderr, "The webpage %s either does"
           "not point to HTML or cannot be opened\n", webpage_getURL(next)); 
     }
+    // Reset position to 0 for next page and clear memory for extracted page.
+    pos = 0;
     webpage_delete(next);
   }
   hashtable_delete(visited, NULL);
