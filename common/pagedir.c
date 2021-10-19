@@ -42,3 +42,27 @@ bool is_dir_writable(char *path)
     return true;
   }
 }
+
+/* The `is_crawler_dir` function checks if a given directory is created by the
+ * crawler. If the directory has been created by the crawler then `true` is
+ * returned. Otherwise, `false` is returned. Since the crawler will add a 
+ * `.crawler` hidden file in each directory that it creates/traverses, this 
+ * function simply checks for this existence of this file in the given 
+ * directory. Note that if the given path is NULL or if the path is invalid
+ * or non-existent, then `false` is also returned.
+ */
+bool is_crawler_dir(char *path) 
+{
+  FILE *fp; 
+
+  // Check null-pointer argument.
+  if (path == NULL) {
+    return false;
+  } else if ((fp = fopen(path, "r")) == NULL) {
+    return false;
+  } else {
+    fclose(fp);
+    return true;
+  }
+}
+

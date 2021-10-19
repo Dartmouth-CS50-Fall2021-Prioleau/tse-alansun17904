@@ -22,7 +22,7 @@ void parse_args(int argc, char *argv[])
 {
   if (argc != 4)
     exit(1);
-  
+    
 }
 
 

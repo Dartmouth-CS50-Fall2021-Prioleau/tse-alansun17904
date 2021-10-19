@@ -20,5 +20,11 @@
  */
 bool is_dir_writable(char *path);
 
+/* Checks if a given directory is a directory that has been created by the
+ * crawler. If this directory is created by the crawler, then `true` is
+ * returned. Otherwise, `false` is returned.
+ */
+bool is_crawler_dir(char *path);
+
 
 #endif
