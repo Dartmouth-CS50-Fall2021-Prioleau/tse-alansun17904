@@ -1,0 +1,12 @@
+# VS Code
+.vscode
+
+# Testing directories
+test*/*
+
+# Object files and executables
+**/*.o
+**/*.x
+
+# Vim swap files
+**/*.swp

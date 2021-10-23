@@ -2,47 +2,142 @@
  * CS50, Fall 2021, Tiny Search Engine: Indexer
  * Module for an Indexer Data Structure (index.c)
  *
+ * This module implements a indexer datastructure for the indexer. The general
+ * idea is that this data structure tabulates the number of times a given 
+ * word appears in a document. It then does this for all the documents in a 
+ * given crawler directory. This structure is implemented as a hashtable whose
+ * keys are the words being tabulated and the values are counters which have
+ * the document IDs as their key and the count of the word in each document
+ * as their value. A diagram of this data structure is shown below:
+ *
+ *
+ * |-----|   |====|    |------------|    |------------|    |------------| 
+ * |word1| : |head| -> |id1 : count1| -> |id2 : count2| -> |id3 : count3|
+ * |-----|   |====|    |------------|    |------------|    |------------|
+ *    |
+ *    v
+ * |-----|   |====|    |------------|    |------------|    |------------| 
+ * |word2| : |head| -> |id1 : count4| -> |id2 : count5| -> |id3 : count6|
+ * |-----|   |====|    |------------|    |------------|    |------------|
+ *    |
+ *    v
+ * |-----|   |====|    |------------|    |------------|    |------------| 
+ * |word3| : |head| -> |id1 : count7| -> |id2 : count8| -> |id3 : count9|
+ * |-----|   |====|    |------------|    |------------|    |------------|
+ *
+ * This module also provides some utility functions that go along with this
+ * datastructure. Each of these are described in detail in their function 
+ * headers. 
+ *
+ * Please note that unit tests are included at the end of the source code.
+ *
  */
 
 #include<stdlib.h>
 #include<stdbool.h>
 #include<stdio.h>
-#include "index.h"
 #include "hashtable.h"
 #include "counters.h"
+#include "index.h"
+#include "memory.h"
 
+/* (description): The `index_new` function creates a new index data structure.
+ * It will allocate memory for this structure as well as its underlying 
+ * hashtable. 
+ * 
+ * (inputs):
+ *
+ * (outputs): The function will return a pointr to this newly allocated data
+ * structure. The user is responsible for freeing this memory by calling
+ * `index_delete` on the returned pointer when they are done using it, or 
+ * else there will be memory leaks.
+ *
+ * (error handling): If memory allocation fails, the function will cause
+ * the program calling the function to terminate. The user needs to be 
+ * careful because this will most likely result in memory leaks of unfreed
+ * blocks. 
+ */
 index_t *index_new(void)
 {
   index_t *index = malloc(sizeof(index_t));
+  
+  // Check memory allocation failure.
+  assertp(index, "Memory for index could not be allocated.\n");
 
-  // Create a hashtable of where the keys are words and the values are a
-  // set of counters, where each counter's key is the document id and the
-  // count is the instances of that word in the document.
+  /* Create a hashtable of where the keys are words and the values are a
+   * set of counters, where each counter's key is the document id and the
+   * count is the instances of that word in the document.
+   */
   index->table = hashtable_new(1000);
+  // Check memory allocation failure.
+  assertp(index->table, "Memory allocation for hashtable in index created " \
+                        "has failed.\n");
   return index;
 }
 
+/* (description): A helper function that prints the contents of a counter. 
+ * Since this function is only useful in the context of this module it is
+ * made static and not exposed to the user.
+ *
+ * (inputs): It follows the format required by the counters print in the
+ * counters module. The first argument is the file pointer where the printing
+ * will be outputted, the second and third argument represent the key/count
+ * that is being printed. 
+ *
+ * (outputs): Outputs to the given file pointer the printer format: 
+ * the key followed by a space followed by the count. 
+ *
+ * (error handling): If given file pointer is NULL, then the function will do
+ * nothing.
+ */
 static void print_counts(void *fp, const int key, const int count)
 {
   if (fp == NULL) 
     return;
-  fprintf(fp, "%d %d", key, count);
+  fprintf(fp, " %d %d", key, count);
 }
 
+/* (description):
+ * 
+ * (inputs):
+ *
+ * (outputs):
+ *
+ * (error handling):
+ */
 static void print_words(void *fp, const char *key, void *item)
 {
   if (fp == NULL)
     return;
-  fprintf(fp, "%s: ", key);
+  fprintf(fp, "%s", key);
   counters_iterate(item, fp, print_counts);
   fprintf(fp, "\n");
 }
 
-void c_delete_helper(void *counter)
+/* (description): A helper function that deletes a counter. This function
+ * must exist because if we just past the counters_delete function into
+ * the hashtable_delete function there will be incompatiable types. Thus,
+ * we need this wrapper. Please see the counters.c module for more information
+ * about how the counter is being deleted.
+ */
+static void c_delete_helper(void *counter)
 {
   counters_delete(counter);
 }
 
+
+/* (description): The index_delete function deletes an index data structure. 
+ * It does this by first deleteing the counters in the hashtable. It does this
+ * by calling the hashtable_delete function and then passing in the 
+ * c_delete_helper function. Then it deletes the hashtable and its keys.
+ * Lastly, it will delete the memory associated with the pointer associated
+ * with the index. 
+ * 
+ * (inputs): A pointer to the index that is being deleted.
+ *
+ * (error handling): If the given pointer is NULL, then nothing will happen
+ * and the program will exit.
+ */
 void index_delete(index_t *index)
 {
   if (index == NULL)
@@ -85,7 +180,26 @@ bool index_save(FILE *fp, index_t *index)
   return true;
 }
 
-bool index_add(index_t *index, char *word, int document_id) {
+/* (description): The `index_add` function increments the count of a word
+ * associated with a given document. It does this by either appending
+ * a new counter to the set for the given word or increment the counter
+ * of an existing counter.
+ * 
+ * (inputs): The function takes in three arguments: a pointer to an index
+ * data structure, a word, and an integer document ID. All of these arguments
+ * must be non-NULL. We note that the index will make a copy of the given word,
+ * so the user is able to freely modify the given word and this will not change
+ * the values stored in the data structure.
+ *
+ * (outputs): The function will output true if the counter has been
+ * successfully incremented, and false if the increment did not succeed. 
+ *
+ * (error handling): If the pointer to index or the word are NULL pointers
+ * then the function will return false. The document IDs are assumed to be 
+ * > 1, but if the given ID is less than 1, then false is also returned.
+ */
+bool index_add(index_t *index, char *word, int document_id)
+{
   counters_t *count;
 
   // Check argument validity.
@@ -101,8 +215,120 @@ bool index_add(index_t *index, char *word, int document_id) {
     counters_add(count, document_id);
     return true;
   } else {
+    // The word already exists in the hashtable, so we just add to the counter.
     count = hashtable_find(index->table, word);
     counters_add(count, document_id);
     return true;
   }
 }
+
+
+#ifdef UNIT_TEST
+/* Unit Tests for index.c
+ *
+ * The following lines of code are unit tests for index.c. These tests can be
+ * run using the -DUNIT_TEST option during compilation. There will be tests
+ * for all of the functions that are exposed to the user. The headers for
+ * each of the testing functions will describe the tests indepth. 
+ */
+
+#include<assert.h>
+
+static void test_index_add(void);
+static void test_index_delete(void);
+static void test_index_save(void);
+
+int main(void)
+{
+  test_index_add();
+  test_index_delete();
+  test_index_save();
+  return 0;
+}
+
+/* Tests the adding function of the index module.
+ */
+static void test_index_add(void)
+{
+  index_t *index = index_new();
+  
+  // NULL Arguments – Expect false
+  assert(index_add(NULL, "hi", 1) == false);
+  assert(index_add(index, NULL, 1) == false);
+  assert(index_add(index, "hi", -1) == false);
+
+  // Basic Functionality of Adding To Index
+  assert(index_add(index, "hello", 1));
+  assert(index_add(index, "hello", 1));
+  assert(index_add(index, "hello", 1));
+  assert(index_add(index, "yo", 2));
+  assert(index_add(index, "yo", 1));
+
+  hashtable_t *ht = index->table;
+  counters_t *hello_count = hashtable_find(ht, "hello");
+  counters_t *yo_count = hashtable_find(ht, "yo");
+  assert(counters_get(hello_count, 1) == 3);
+  assert(counters_get(yo_count, 1) == 1);
+  assert(counters_get(yo_count, 2) == 1);
+
+  index_delete(index);
+}
+
+/* Tests the delete function of the index module.
+ */
+static void test_index_delete(void)
+{
+  index_t *index = index_new();
+
+  // NULL Arguments -- Expect nothing
+  index_delete(NULL);
+  
+  // Test Basic Functionality of Deleting
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "yo", 2);
+  index_add(index, "yo", 1);
+
+  index_delete(index);
+
+  // Check for memory leakage, when previous variable has been 
+  // destroyed.
+  index = index_new();
+  index_add(index, "this is new", 1);
+
+  index_delete(index);
+}
+
+/* Tests the save function of the index module.
+ */
+static void test_index_save(void)
+{
+  index_t *index = index_new();
+  FILE *fp1 = fopen("test1.output", "w");
+  FILE *fp2 = fopen("test2.output", "w");
+
+  // Invalid arguments.
+  assert(index_save(NULL, index) == false);
+  assert(index_save(fp1, NULL) == false);
+  
+  // Saving an empty index should be nothing.
+  assert(index_save(fp1, index));
+
+
+  // Basic Functionality – The tester needs to visually inspect these files.
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "yo", 2);
+  index_add(index, "yo", 1);
+
+  assert(index_save(fp2, index)); 
+
+  index_delete(index);
+  fclose(fp1);
+  fclose(fp2);
+}
+
+#endif
+

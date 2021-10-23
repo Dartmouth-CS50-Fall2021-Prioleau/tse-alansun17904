@@ -15,7 +15,7 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-#include<hashtable.h>
+#include "hashtable.h"
 #include<stdbool.h>
 
 typedef struct index {
