@@ -1,0 +1,413 @@
+The following tests will check for memory leaks.
+rm -f *.o indexer 
+rm -rf $(ls | egrep "^test[0-9]+.output$" | tr "\n" " ")	
+rm -f testout.expected
+rm -f test10.output.sorted
+gcc  -Wall -pedantic -std=c11 -ggdb -I../libcs50 -I../common -c indexer.c
+gcc   indexer.o ../common/common.a ../libcs50/libcs50.a -o indexer
+==30301== Memcheck, a memory error detector
+==30301== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30301== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30301== Command: ./indexer
+==30301== 
+Invalid number of arguments provided.
+==30301== 
+==30301== HEAP SUMMARY:
+==30301==     in use at exit: 0 bytes in 0 blocks
+==30301==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==30301== 
+==30301== All heap blocks were freed -- no leaks are possible
+==30301== 
+==30301== For counts of detected and suppressed errors, rerun with: -v
+==30301== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30302== Memcheck, a memory error detector
+==30302== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30302== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30302== Command: ./indexer 0
+==30302== 
+Invalid number of arguments provided.
+==30302== 
+==30302== HEAP SUMMARY:
+==30302==     in use at exit: 0 bytes in 0 blocks
+==30302==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==30302== 
+==30302== All heap blocks were freed -- no leaks are possible
+==30302== 
+==30302== For counts of detected and suppressed errors, rerun with: -v
+==30302== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30310== Memcheck, a memory error detector
+==30310== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30310== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30310== Command: ./indexer hello
+==30310== 
+Invalid number of arguments provided.
+==30310== 
+==30310== HEAP SUMMARY:
+==30310==     in use at exit: 0 bytes in 0 blocks
+==30310==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==30310== 
+==30310== All heap blocks were freed -- no leaks are possible
+==30310== 
+==30310== For counts of detected and suppressed errors, rerun with: -v
+==30310== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30312== Memcheck, a memory error detector
+==30312== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30312== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30312== Command: ./indexer hello there are four
+==30312== 
+Invalid number of arguments provided.
+==30312== 
+==30312== HEAP SUMMARY:
+==30312==     in use at exit: 0 bytes in 0 blocks
+==30312==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==30312== 
+==30312== All heap blocks were freed -- no leaks are possible
+==30312== 
+==30312== For counts of detected and suppressed errors, rerun with: -v
+==30312== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30320== Memcheck, a memory error detector
+==30320== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30320== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30320== Command: ./indexer hello there are
+==30320== 
+Invalid number of arguments provided.
+==30320== 
+==30320== HEAP SUMMARY:
+==30320==     in use at exit: 0 bytes in 0 blocks
+==30320==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==30320== 
+==30320== All heap blocks were freed -- no leaks are possible
+==30320== 
+==30320== For counts of detected and suppressed errors, rerun with: -v
+==30320== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30328== Memcheck, a memory error detector
+==30328== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30328== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30328== Command: ./indexer test1 index
+==30328== 
+The given directory was not created by the crawler.
+==30328== 
+==30328== HEAP SUMMARY:
+==30328==     in use at exit: 0 bytes in 0 blocks
+==30328==   total heap usage: 2 allocs, 2 frees, 567 bytes allocated
+==30328== 
+==30328== All heap blocks were freed -- no leaks are possible
+==30328== 
+==30328== For counts of detected and suppressed errors, rerun with: -v
+==30328== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30337== Memcheck, a memory error detector
+==30337== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30337== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30337== Command: ./indexer test2 test2.output
+==30337== 
+==30337== 
+==30337== HEAP SUMMARY:
+==30337==     in use at exit: 0 bytes in 0 blocks
+==30337==   total heap usage: 10 allocs, 10 frees, 10,263 bytes allocated
+==30337== 
+==30337== All heap blocks were freed -- no leaks are possible
+==30337== 
+==30337== For counts of detected and suppressed errors, rerun with: -v
+==30337== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==30339== Memcheck, a memory error detector
+==30339== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30339== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30339== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-0 test3.output
+==30339== 
+==30339== 
+==30339== HEAP SUMMARY:
+==30339==     in use at exit: 8 bytes in 1 blocks
+==30339==   total heap usage: 91 allocs, 90 frees, 30,572 bytes allocated
+==30339== 
+==30339== 8 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==30339==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30339==    by 0x109ACB: counters_new (counters.c:59)
+==30339==    by 0x1099C2: index_add (index.c:209)
+==30339==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30339==    by 0x1094B5: read_directory (indexer.c:69)
+==30339==    by 0x1092DC: main (indexer.c:26)
+==30339== 
+==30339== LEAK SUMMARY:
+==30339==    definitely lost: 8 bytes in 1 blocks
+==30339==    indirectly lost: 0 bytes in 0 blocks
+==30339==      possibly lost: 0 bytes in 0 blocks
+==30339==    still reachable: 0 bytes in 0 blocks
+==30339==         suppressed: 0 bytes in 0 blocks
+==30339== 
+==30339== For counts of detected and suppressed errors, rerun with: -v
+==30339== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30347== Memcheck, a memory error detector
+==30347== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30347== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30347== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-1/ test4.output
+==30347== 
+==30347== 
+==30347== HEAP SUMMARY:
+==30347==     in use at exit: 24 bytes in 3 blocks
+==30347==   total heap usage: 187 allocs, 184 frees, 48,504 bytes allocated
+==30347== 
+==30347== 24 bytes in 3 blocks are definitely lost in loss record 1 of 1
+==30347==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30347==    by 0x109ACB: counters_new (counters.c:59)
+==30347==    by 0x1099C2: index_add (index.c:209)
+==30347==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30347==    by 0x1094B5: read_directory (indexer.c:69)
+==30347==    by 0x1092DC: main (indexer.c:26)
+==30347== 
+==30347== LEAK SUMMARY:
+==30347==    definitely lost: 24 bytes in 3 blocks
+==30347==    indirectly lost: 0 bytes in 0 blocks
+==30347==      possibly lost: 0 bytes in 0 blocks
+==30347==    still reachable: 0 bytes in 0 blocks
+==30347==         suppressed: 0 bytes in 0 blocks
+==30347== 
+==30347== For counts of detected and suppressed errors, rerun with: -v
+==30347== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30364== Memcheck, a memory error detector
+==30364== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30364== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30364== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-2/ test5.output
+==30364== 
+==30364== 
+==30364== HEAP SUMMARY:
+==30364==     in use at exit: 40 bytes in 5 blocks
+==30364==   total heap usage: 361 allocs, 356 frees, 78,572 bytes allocated
+==30364== 
+==30364== 40 bytes in 5 blocks are definitely lost in loss record 1 of 1
+==30364==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30364==    by 0x109ACB: counters_new (counters.c:59)
+==30364==    by 0x1099C2: index_add (index.c:209)
+==30364==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30364==    by 0x1094B5: read_directory (indexer.c:69)
+==30364==    by 0x1092DC: main (indexer.c:26)
+==30364== 
+==30364== LEAK SUMMARY:
+==30364==    definitely lost: 40 bytes in 5 blocks
+==30364==    indirectly lost: 0 bytes in 0 blocks
+==30364==      possibly lost: 0 bytes in 0 blocks
+==30364==    still reachable: 0 bytes in 0 blocks
+==30364==         suppressed: 0 bytes in 0 blocks
+==30364== 
+==30364== For counts of detected and suppressed errors, rerun with: -v
+==30364== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30376== Memcheck, a memory error detector
+==30376== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30376== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30376== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-3/ test6.output
+==30376== 
+==30376== 
+==30376== HEAP SUMMARY:
+==30376==     in use at exit: 104 bytes in 13 blocks
+==30376==   total heap usage: 717 allocs, 704 frees, 141,912 bytes allocated
+==30376== 
+==30376== 104 bytes in 13 blocks are definitely lost in loss record 1 of 1
+==30376==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30376==    by 0x109ACB: counters_new (counters.c:59)
+==30376==    by 0x1099C2: index_add (index.c:209)
+==30376==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30376==    by 0x1094B5: read_directory (indexer.c:69)
+==30376==    by 0x1092DC: main (indexer.c:26)
+==30376== 
+==30376== LEAK SUMMARY:
+==30376==    definitely lost: 104 bytes in 13 blocks
+==30376==    indirectly lost: 0 bytes in 0 blocks
+==30376==      possibly lost: 0 bytes in 0 blocks
+==30376==    still reachable: 0 bytes in 0 blocks
+==30376==         suppressed: 0 bytes in 0 blocks
+==30376== 
+==30376== For counts of detected and suppressed errors, rerun with: -v
+==30376== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30384== Memcheck, a memory error detector
+==30384== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30384== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30384== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-4/ test7.output
+==30384== 
+==30384== 
+==30384== HEAP SUMMARY:
+==30384==     in use at exit: 136 bytes in 17 blocks
+==30384==   total heap usage: 965 allocs, 948 frees, 184,297 bytes allocated
+==30384== 
+==30384== 136 bytes in 17 blocks are definitely lost in loss record 1 of 1
+==30384==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30384==    by 0x109ACB: counters_new (counters.c:59)
+==30384==    by 0x1099C2: index_add (index.c:209)
+==30384==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30384==    by 0x1094B5: read_directory (indexer.c:69)
+==30384==    by 0x1092DC: main (indexer.c:26)
+==30384== 
+==30384== LEAK SUMMARY:
+==30384==    definitely lost: 136 bytes in 17 blocks
+==30384==    indirectly lost: 0 bytes in 0 blocks
+==30384==      possibly lost: 0 bytes in 0 blocks
+==30384==    still reachable: 0 bytes in 0 blocks
+==30384==         suppressed: 0 bytes in 0 blocks
+==30384== 
+==30384== For counts of detected and suppressed errors, rerun with: -v
+==30384== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30395== Memcheck, a memory error detector
+==30395== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30395== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30395== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/letters-depth-5/ test8.output
+==30395== 
+==30395== 
+==30395== HEAP SUMMARY:
+==30395==     in use at exit: 152 bytes in 19 blocks
+==30395==   total heap usage: 1,077 allocs, 1,058 frees, 203,898 bytes allocated
+==30395== 
+==30395== 152 bytes in 19 blocks are definitely lost in loss record 1 of 1
+==30395==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30395==    by 0x109ACB: counters_new (counters.c:59)
+==30395==    by 0x1099C2: index_add (index.c:209)
+==30395==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30395==    by 0x1094B5: read_directory (indexer.c:69)
+==30395==    by 0x1092DC: main (indexer.c:26)
+==30395== 
+==30395== LEAK SUMMARY:
+==30395==    definitely lost: 152 bytes in 19 blocks
+==30395==    indirectly lost: 0 bytes in 0 blocks
+==30395==      possibly lost: 0 bytes in 0 blocks
+==30395==    still reachable: 0 bytes in 0 blocks
+==30395==         suppressed: 0 bytes in 0 blocks
+==30395== 
+==30395== For counts of detected and suppressed errors, rerun with: -v
+==30395== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30402== Memcheck, a memory error detector
+==30402== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30402== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30402== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/toscrape-depth-0/ test9.output
+==30402== 
+==30402== 
+==30402== HEAP SUMMARY:
+==30402==     in use at exit: 760 bytes in 95 blocks
+==30402==   total heap usage: 52,279 allocs, 52,184 frees, 1,315,700,646 bytes allocated
+==30402== 
+==30402== 760 bytes in 95 blocks are definitely lost in loss record 1 of 1
+==30402==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30402==    by 0x109ACB: counters_new (counters.c:59)
+==30402==    by 0x1099C2: index_add (index.c:209)
+==30402==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30402==    by 0x1094B5: read_directory (indexer.c:69)
+==30402==    by 0x1092DC: main (indexer.c:26)
+==30402== 
+==30402== LEAK SUMMARY:
+==30402==    definitely lost: 760 bytes in 95 blocks
+==30402==    indirectly lost: 0 bytes in 0 blocks
+==30402==      possibly lost: 0 bytes in 0 blocks
+==30402==    still reachable: 0 bytes in 0 blocks
+==30402==         suppressed: 0 bytes in 0 blocks
+==30402== 
+==30402== For counts of detected and suppressed errors, rerun with: -v
+==30402== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30432== Memcheck, a memory error detector
+==30432== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30432== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30432== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/toscrape-depth-1/ test10.output
+==30432== 
+==30432== 
+==30432== HEAP SUMMARY:
+==30432==     in use at exit: 106,264 bytes in 13,283 blocks
+==30432==   total heap usage: 2,350,078 allocs, 2,336,795 frees, 42,744,356,181 bytes allocated
+==30432== 
+==30432== 106,264 bytes in 13,283 blocks are definitely lost in loss record 1 of 1
+==30432==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30432==    by 0x109ACB: counters_new (counters.c:59)
+==30432==    by 0x1099C2: index_add (index.c:209)
+==30432==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30432==    by 0x1094B5: read_directory (indexer.c:69)
+==30432==    by 0x1092DC: main (indexer.c:26)
+==30432== 
+==30432== LEAK SUMMARY:
+==30432==    definitely lost: 106,264 bytes in 13,283 blocks
+==30432==    indirectly lost: 0 bytes in 0 blocks
+==30432==      possibly lost: 0 bytes in 0 blocks
+==30432==    still reachable: 0 bytes in 0 blocks
+==30432==         suppressed: 0 bytes in 0 blocks
+==30432== 
+==30432== For counts of detected and suppressed errors, rerun with: -v
+==30432== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==30665== Memcheck, a memory error detector
+==30665== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==30665== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==30665== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/toscrape-depth-2/ test11.output
+==30665== 
+==30665== 
+==30665== HEAP SUMMARY:
+==30665==     in use at exit: 1,322,680 bytes in 165,335 blocks
+==30665==   total heap usage: 13,188,672 allocs, 13,023,337 frees, 154,004,112,920 bytes allocated
+==30665== 
+==30665== 1,322,680 bytes in 165,335 blocks are definitely lost in loss record 1 of 1
+==30665==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==30665==    by 0x109ACB: counters_new (counters.c:59)
+==30665==    by 0x1099C2: index_add (index.c:209)
+==30665==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==30665==    by 0x1094B5: read_directory (indexer.c:69)
+==30665==    by 0x1092DC: main (indexer.c:26)
+==30665== 
+==30665== LEAK SUMMARY:
+==30665==    definitely lost: 1,322,680 bytes in 165,335 blocks
+==30665==    indirectly lost: 0 bytes in 0 blocks
+==30665==      possibly lost: 0 bytes in 0 blocks
+==30665==    still reachable: 0 bytes in 0 blocks
+==30665==         suppressed: 0 bytes in 0 blocks
+==30665== 
+==30665== For counts of detected and suppressed errors, rerun with: -v
+==30665== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==31152== Memcheck, a memory error detector
+==31152== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==31152== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==31152== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/wikipedia-depth-0/ test12.output
+==31152== 
+==31152== 
+==31152== HEAP SUMMARY:
+==31152==     in use at exit: 264 bytes in 33 blocks
+==31152==   total heap usage: 6,493 allocs, 6,460 frees, 19,499,636 bytes allocated
+==31152== 
+==31152== 264 bytes in 33 blocks are definitely lost in loss record 1 of 1
+==31152==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==31152==    by 0x109ACB: counters_new (counters.c:59)
+==31152==    by 0x1099C2: index_add (index.c:209)
+==31152==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==31152==    by 0x1094B5: read_directory (indexer.c:69)
+==31152==    by 0x1092DC: main (indexer.c:26)
+==31152== 
+==31152== LEAK SUMMARY:
+==31152==    definitely lost: 264 bytes in 33 blocks
+==31152==    indirectly lost: 0 bytes in 0 blocks
+==31152==      possibly lost: 0 bytes in 0 blocks
+==31152==    still reachable: 0 bytes in 0 blocks
+==31152==         suppressed: 0 bytes in 0 blocks
+==31152== 
+==31152== For counts of detected and suppressed errors, rerun with: -v
+==31152== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==31159== Memcheck, a memory error detector
+==31159== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==31159== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==31159== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/wikipedia-depth-1/ test13.output
+==31159== 
+==31159== 
+==31159== HEAP SUMMARY:
+==31159==     in use at exit: 294,696 bytes in 36,837 blocks
+==31159==   total heap usage: 1,609,232 allocs, 1,572,395 frees, 234,201,013,200 bytes allocated
+==31159== 
+==31159== 294,696 bytes in 36,837 blocks are definitely lost in loss record 1 of 1
+==31159==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==31159==    by 0x109ACB: counters_new (counters.c:59)
+==31159==    by 0x1099C2: index_add (index.c:209)
+==31159==    by 0x1095F3: read_crawled_file (indexer.c:108)
+==31159==    by 0x1094B5: read_directory (indexer.c:69)
+==31159==    by 0x1092DC: main (indexer.c:26)
+==31159== 
+==31159== LEAK SUMMARY:
+==31159==    definitely lost: 294,696 bytes in 36,837 blocks
+==31159==    indirectly lost: 0 bytes in 0 blocks
+==31159==      possibly lost: 0 bytes in 0 blocks
+==31159==    still reachable: 0 bytes in 0 blocks
+==31159==         suppressed: 0 bytes in 0 blocks
+==31159== 
+==31159== For counts of detected and suppressed errors, rerun with: -v
+==31159== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==31541== Memcheck, a memory error detector
+==31541== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==31541== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==31541== Command: ./indexer /thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output/wikipedia-depth-2/ test14.output
+==31541== 
