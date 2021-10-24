@@ -3,6 +3,8 @@
 
 # Testing directories
 test*/*
+*.out
+*.output
 
 # Object files and executables
 **/*.o

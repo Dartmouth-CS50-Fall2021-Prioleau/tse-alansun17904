@@ -10,6 +10,3 @@ implemented as distinct parts, however, note that they all rely on each other.
 As such, the detailed descriptions of each of these parts are located in the `README.md`
 of the subdirectory of each part. 
 
-**I note here that even though each subdirectory requires an independent `.gitignore` I have
-  compiled them all into one placed in the root directory. I found this has made it easier
-  to maintain as all of the ignore commands are now self-contained.**
