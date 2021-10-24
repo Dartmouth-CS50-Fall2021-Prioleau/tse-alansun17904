@@ -3,6 +3,7 @@
 #include<stdbool.h>
 #include<string.h>
 #include "pagedir.h"
+#include "memory.h"
 
 /* Alan Sun
  * CS50, Fall 2021, Tiny Search Enginer: Crawler
@@ -66,6 +67,8 @@ bool is_crawler_dir(char *path)
   FILE *fp; 
   char *crawler_path = malloc(strlen(path) + strlen("/.crawler") + 1);
 
+  assertp(crawler_path, "Memory could not be allocated for the path" \
+                  " of the crawler.");
   // Checking to see if we can read the <path>/.crawler file. If we can
   // it likely means that the path is made the crawler. 
   strcpy(crawler_path, path);

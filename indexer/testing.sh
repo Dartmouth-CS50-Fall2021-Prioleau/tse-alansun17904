@@ -26,10 +26,6 @@ else
   echo The following tests will run without checking for memory leaks.
 fi
 
-# Delete all old test output files and recompile the program.
-make clean
-make 
-
 # Function for checking if two outputted index files are the same.
 # Two args, the files that are being checked for equivalence.
 # The first is the outputted file and the second is the expected file.
@@ -109,12 +105,49 @@ check_index_equal test11.output $OUTPUT_DIR/toscrape-index-2
 $VALGRIND ./indexer $OUTPUT_DIR/wikipedia-depth-0/ test12.output
 check_index_equal test12.output $OUTPUT_DIR/wikipedia-index-0
 
-$VALGRIND ./indexer $OUTPUT_DIR/wikipedia-depth-1/ test13.output
-check_index_equal test13.output $OUTPUT_DIR/wikipedia-index-1
 
-$VALGRIND ./indexer $OUTPUT_DIR/wikipedia-depth-2/ test14.output
-check_index_equal test14.output $OUTPUT_DIR/wikipedia-index-2
+###############################################################################
+###############################################################################
+###############################################################################
 
+# Test indextest: invalid arguments
+$VALGRIND ./indextest non-existent new
+$VALGRIND ./indextest 1arg
+$VALGRIND ./indextest 1arg 2arg 3arg
 
+# Test indextest: empty file
+touch test13
+$VALGRIND ./indextest test13 test13.output
+rm -f test13
 
+# Test indextest: valid test cases
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-0 test14.output
+check_index_equal test14.output $OUTPUT_DIR/letters-index-0 
+
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-1 test15.output
+check_index_equal test15.output $OUTPUT_DIR/letters-index-1 
+
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-2 test16.output
+check_index_equal test16.output $OUTPUT_DIR/letters-index-2 
+
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-3 test17.output
+check_index_equal test17.output $OUTPUT_DIR/letters-index-3 
+
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-4 test18.output
+check_index_equal test18.output $OUTPUT_DIR/letters-index-4 
+
+$VALGRIND ./indextest $OUTPUT_DIR/letters-index-5 test19.output
+check_index_equal test19.output $OUTPUT_DIR/letters-index-5 
+
+$VALGRIND ./indextest $OUTPUT_DIR/toscrape-index-0 test20.output
+check_index_equal test20.output $OUTPUT_DIR/toscrape-index-0
+
+$VALGRIND ./indextest $OUTPUT_DIR/toscrape-index-1 test21.output
+check_index_equal test21.output $OUTPUT_DIR/toscrape-index-1
+
+$VALGRIND ./indextest $OUTPUT_DIR/toscrape-index-2 test22.output
+check_index_equal test22.output $OUTPUT_DIR/toscrape-index-2
+
+$VALGRIND ./indextest $OUTPUT_DIR/wikipedia-index-0 test23.output
+check_index_equal test23.output $OUTPUT_DIR/wikipedia-index-0
 

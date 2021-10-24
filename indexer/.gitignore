@@ -1,6 +1,8 @@
 # Executables and Test Files
 indexer
+indextest
 test*.output
+*.out
 
 # VS Code
 .vscode

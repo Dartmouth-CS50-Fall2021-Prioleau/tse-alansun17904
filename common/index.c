@@ -68,7 +68,7 @@ index_t *index_new(void)
    * set of counters, where each counter's key is the document id and the
    * count is the instances of that word in the document.
    */
-  index->table = hashtable_new(1000);
+  index->table = hashtable_new(3);
   // Check memory allocation failure.
   assertp(index->table, "Memory allocation for hashtable in index created " \
                         "has failed.\n");
@@ -97,17 +97,27 @@ static void print_counts(void *fp, const int key, const int count)
   fprintf(fp, " %d %d", key, count);
 }
 
-/* (description):
+/* (description): A helper function that writes out the counts associated 
+ * with each word. Since this function is only useful in the context of this
+ * module it is made static and not exposed to the user.
  * 
- * (inputs):
+ * (inputs): The function takes in three arguments. These arguments conform to
+ * the function header required for hashtable iterate. The first argument is 
+ * the pointer to the file where the results will be exported; the second 
+ * argument represents the word that is being printed, and the last argument
+ * is the counter that is associated with this word. This will be written
+ * to the file using the `print_counts` helper function and the counters
+ * iteratre.
  *
- * (outputs):
+ * (outputs): The function will write to the given file pointer the counts
+ * of every word with the associated document IDs.
  *
- * (error handling):
+ * (error handling): If any of arguments are NULL, the function will simply
+ * do nothing.
  */
 static void print_words(void *fp, const char *key, void *item)
 {
-  if (fp == NULL)
+  if (fp == NULL || key == NULL || item == NULL)
     return;
   fprintf(fp, "%s", key);
   counters_iterate(item, fp, print_counts);
@@ -124,7 +134,6 @@ static void c_delete_helper(void *counter)
 {
   counters_delete(counter);
 }
-
 
 /* (description): The index_delete function deletes an index data structure. 
  * It does this by first deleteing the counters in the hashtable. It does this
@@ -208,8 +217,9 @@ bool index_add(index_t *index, char *word, int document_id)
   /* The word did not previously exist, then we need to create a new set
    * of counters for this word.
    */
-  } else if (hashtable_insert(index->table, word, counters_new())) {
-    count = hashtable_find(index->table, word); 
+  } else if (hashtable_find(index->table, word) == NULL) {
+    count = counters_new();
+    hashtable_insert(index->table, word, count);
     
     // Increment the counter that was just added to the set.
     counters_add(count, document_id);
@@ -220,6 +230,43 @@ bool index_add(index_t *index, char *word, int document_id)
     counters_add(count, document_id);
     return true;
   }
+}
+
+/* (description): The `index_set` function sets the counter for a document ID
+ * of a given word. This is useful for re-initializing the index file from 
+ * the saved index. The function will modify the index being passed in.
+ *
+ * (inputs): The first argument represents the point to the index data 
+ * structure that is being set. We note that this argument must be non-NULL
+ * The second argument represents the target word whose document ID is being 
+ * set. This argument must point to a non-NULL word. If the word does not 
+ * exist yet in the index data structure, then it will be added. 
+ * The third argument is the document ID whose count is being set, and the
+ * last argument is the count. Both of these arguments must be greater than 0.
+ *
+ * (outputs): The function will return `true` if the index data struct was 
+ * successfully modified. Otherwise, the function will return `false`. 
+ *
+ * (error handling): If at any point memory allocation fails, the program will
+ * terminate. This may result in memory leaks.
+ *
+ */
+bool index_set(index_t *index, char *word, int document_id, int count)
+{
+  counters_t *ct;
+
+  if (index == NULL || word == NULL || document_id < 1 || count < 1)
+    return false;
+  
+  // If the word does not exist we add a new counter with the count.
+  if ((ct = hashtable_find(index->table, word)) == NULL) {
+    ct = counters_new();
+    hashtable_insert(index->table, word, ct);
+    counters_set(ct, document_id, count);
+  } else {
+    counters_set(ct, document_id, count);
+  }
+  return true;
 }
 
 
@@ -237,12 +284,14 @@ bool index_add(index_t *index, char *word, int document_id)
 static void test_index_add(void);
 static void test_index_delete(void);
 static void test_index_save(void);
+static void test_index_set(void);
 
 int main(void)
 {
   test_index_add();
   test_index_delete();
   test_index_save();
+  test_index_set();
   return 0;
 }
 
@@ -328,6 +377,51 @@ static void test_index_save(void)
   index_delete(index);
   fclose(fp1);
   fclose(fp2);
+}
+
+static void test_index_set(void)
+{
+  index_t *index = index_new();
+  hashtable_t *ht;
+  counters_t *ct;
+
+  // Add some basic items to the index.
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "hello", 1);
+  index_add(index, "yo", 2);
+  index_add(index, "yo", 1);
+
+  // Set indicies invalid arguments
+  assert(index_set(NULL, NULL, 0, 0) == false);
+  assert(index_set(index, NULL, -1, 0) == false);
+  assert(index_set(index, "hello", 2, -1) == false);
+
+  // Change existing counts of documents
+  assert(index_set(index, "hello", 1, 10));
+  assert(index_set(index, "yo", 1, 3));
+  assert(index_set(index, "yo", 2, 5));
+
+  ht = index->table;
+  ct = hashtable_find(ht, "hello");
+  assert(counters_get(ct, 1) == 10);
+  ct = hashtable_find(ht, "yo");
+  assert(counters_get(ct, 1) == 3);
+  assert(counters_get(ct, 2) == 5);
+
+  // Set index of non-exisiting words.
+  assert(index_set(index, "this", 1, 10));
+  assert(index_set(index, "new_word", 2, 5));
+  assert(index_set(index, "word", 3, 50));
+
+  ct = hashtable_find(ht, "this");
+  assert(counters_get(ct, 1) == 10);
+  ct = hashtable_find(ht, "new_word");
+  assert(counters_get(ct, 2) == 5);
+  ct = hashtable_find(ht, "word");
+  assert(counters_get(ct, 3) == 50);
+
+  index_delete(index);
 }
 
 #endif

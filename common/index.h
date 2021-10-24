@@ -30,4 +30,6 @@ bool index_save(FILE *fp, index_t *index);
 
 bool index_add(index_t *index, char *word, int document_id);
 
+bool index_set(index_t *index, char *word, int document_id, int count);
+
 #endif
