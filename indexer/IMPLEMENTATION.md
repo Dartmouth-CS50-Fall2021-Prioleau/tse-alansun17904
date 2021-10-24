@@ -23,6 +23,13 @@ and running:
 make
 ```
 
+The indextest program can be run using the following command:
+```bash
+$ make 
+$ ./indextest INDEX_FILE NEW_FILE
+```
+Similar to indexer this also needs to aforementioned libraries. 
+
 ### Inputs
 The indexer requires two arguments to run:
 - `CRAWLER_DIR` a path to the a directory that is created by the crawler. We note that the program
@@ -31,6 +38,12 @@ file. Moreover, within this directory the program assumes that the files in the 
 labelled from 1... up increasing by 1 for each file.
 - `INDEX_PATH` is the path to the index file where the indexer will save the contents of its 
 data structure.
+
+The indextest program requires two arguments:
+- `INDEX_FILE` a file containing the outputs from a previous index data structure. This needs
+to be in the correct format of the indexer. If the given file exists, it is assumed that the given file
+conforms to this format.
+- `NEW_FILE` the path to where the contents of the newly initlized index file is to be written.
 
 ### Outputs
 If the program runs successfully, with a non-zero status, then it will output nothing to `stdout`. 
@@ -46,7 +59,7 @@ where the `word<i>` corresponds to the word whose count across many documents is
 `id<i>` corresponds to the ID (or filename) of the document where this word was found, and 
 `count<i>` corresponds to the number of times this word was found in the document before it.
 
-### Pseudo-code
+### Pseudo-code: Indexer
 This subsection describes my basic idea for implementing this program. It contains some pseudo-code
 which may clarify the source code to the reader.
 Please note that the hashtable/counters/index data structures that I am refering to are in the
@@ -78,6 +91,46 @@ we begin with filename=1
 
 if the filename+1 file does not exist then it means that we are done reading
 <end loop>
+
+clean up structs
+
+<end of program>
+```
+
+### Pseudo-code: Indextest
+This subsection describes my basic idea for implementing the indextest program. It contains some 
+pseudo-code which may clarify the source code to the reader.
+Please note that the index data structure I will be referencing is implemented in the `index.c` file.
+```
+<start of program>
+
+check if arguments are valid
+  there must be exactly two arguments
+  the file provided in the first argument must exist
+  the file provided in the second argument must be writable
+
+create an index struct
+determine the number of lines in the given file: each line corresponds to a word
+
+<start loop>
+we continue to loop as long as we have not hit the end of the file
+  read in the first line
+  read the word on the first line
+  
+  <start loop>
+  we read two numbers from the current line
+    the first refers to the doc ID
+    the second refers to the count
+  these and the word are stored in the index struct
+  we increment the buffer by the number of characters we just read in
+  the loop continues as long as we have not hit the newline character
+  <end loop>
+
+<end loop>
+
+save the struct to the new file
+clean up structs
+
 <end of program>
 ```
 
