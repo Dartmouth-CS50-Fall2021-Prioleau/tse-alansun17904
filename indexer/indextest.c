@@ -18,13 +18,12 @@
  * constructed indexer will be placed.
  */
 
-index_t *read_index_file(FILE *fp);
+index_t *index_load(FILE *fp);
 
 /* (description): The program will read from an index file, store its contents
  * into a newly created index struct, and then re-save the contents of this 
  * index struct to the new file that is given. 
- *
- * (inputs): The program takes two arguments, the first is the path to the path
+ * * (inputs): The program takes two arguments, the first is the path to the path
  * to the index file, while the second is the path to the desired new index
  * file. If either of these arguments are invalid, meaning that the index file
  * does not exist, or that the new file cannot be created, then the program 
@@ -66,7 +65,7 @@ int main(int argc, char *argv[])
     exit(2);
   }
 
-  index = read_index_file(fpr);
+  index = index_load(fpr);
   index_save(fpw, index);
 
   fclose(fpw);
@@ -91,7 +90,7 @@ int main(int argc, char *argv[])
  * user needs to be weary of this.
  *
  */
-index_t *read_index_file(FILE *fp)
+index_t *index_load(FILE *fp)
 {
   index_t *index;
   char *word, *line;
