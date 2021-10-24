@@ -8,7 +8,7 @@
 CFLAGS = -Wall -pedantic -std=c11 -ggdb -I../libcs50 -I../common
 CC = gcc 
 LIBS = ../common/common.a ../libcs50/libcs50.a
-.PHONY: clean
+.PHONY: clean all test valgrind
 
 all: indexer indextest
 
