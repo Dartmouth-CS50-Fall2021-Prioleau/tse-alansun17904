@@ -3,7 +3,7 @@ Here contains a list of functions that need to be written for the querier and a 
 description of each one. 
 
 ## Common
-- [] Tokenizer - checks if a query is a valid query (must have all alphabetic
+- [ ] Tokenizer - checks if a query is a valid query (must have all alphabetic
 characters; read until a new line; only whitespace other than \n at the end 
 must be spaces), tokenizes words (separate the query into many substrings 
 where each substring is a word that contains no whitespace).
@@ -24,19 +24,28 @@ where each substring is a word that contains no whitespace).
 
 <end function>
 ```
-- [] Set Intersections - gets the intersections of two sets, if an element
+- [ ] Counters Intersections - gets the intersections of two sets, if an element
 exists in both sets then we simply take the min of the two elements. 
 ```
+<begin function>: takes two counters and return a new set.
 
+create a new empty counters 
+
+iteratre through one of the counters if an element here exists in the 
+other counters, then add it to the new counters.
+
+return new counters 
+
+<end function>
 ```
 
-- [] Set Unions - gets the union of two sets, if an element exists in both sets
+- [ ] Counters Unions - gets the union of two sets, if an element exists in both sets
 then we simply add the two values together. 
 ```
 
 ```
 
 ## Querier 
-- [] Validate arguments - checks if the query is semantically valid (there must 
+- [ ] Validate arguments - checks if the query is semantically valid (there must 
 be no starting or trailing logical arguments; there cannot be consecutive 
 logical arguments;
