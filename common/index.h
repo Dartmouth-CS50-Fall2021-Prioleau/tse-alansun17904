@@ -16,6 +16,7 @@
 #define INDEX_H
 
 #include "hashtable.h"
+#include "counters.h"
 #include<stdbool.h>
 
 typedef struct index {
@@ -30,6 +31,10 @@ bool index_save(FILE *fp, index_t *index);
 
 bool index_add(index_t *index, char *word, int document_id);
 
+counters_t *index_get(index_t *index, char *word);
+
 bool index_set(index_t *index, char *word, int document_id, int count);
+
+index_t *index_load(FILE *fp);
 
 #endif

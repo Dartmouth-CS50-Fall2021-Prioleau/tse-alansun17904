@@ -95,6 +95,23 @@ counters_t *unions(counters_t *c1, counters_t *c2)
   return ret;
 }
 
+/* (description): Given a counter, this function will dynamically duplicate
+ * it, copying its items and keys as well as 
+ *
+ * (inputs):
+ *
+ * (outputs):
+ *
+ * (error handling):
+ *
+ */
+counters_t *dup_counter(counters_t *counter)
+{
+  
+
+
+}
+
 static void copy_counters(void *arg, const int key, const int count)
 {
   counters_set(arg, key, count);

@@ -17,7 +17,7 @@ pagedir.o: pagedir.c pagedir.h ../libcs50/memory.h
 	$(CC) $(CFLAGS) -c pagedir.c
 
 index.o: index.c index.h ../libcs50/hashtable.h ../libcs50/counters.h \
-				../libcs50/memory.h
+				../libcs50/memory.h ../libcs50/file.h
 	$(CC) $(CFLAGS) -c index.c
 
 tokenizer.o: tokenizer.c tokenizer.h

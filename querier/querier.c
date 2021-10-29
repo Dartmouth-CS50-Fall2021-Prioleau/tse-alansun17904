@@ -5,6 +5,7 @@
 #include "file.h"
 #include "tokenizer.h"
 #include "hashtable.h"
+#include "pagedir.h"
 #include "counters.h"
 #include "operators.h"
 #include "index.h"
@@ -12,6 +13,7 @@
 
 bool check_valid_query(tokenizer_t *token);
 void parse_args(int argc, char *argv[]);
+counters_t *score_query(tokenizer_t *token, char *index_filename);
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +24,7 @@ int main(int argc, char *argv[])
 
   printf("Query: ");
   while ((query = readlinep())) {
+    printf("%s\n", query);
     token = tokenize(query);
     if (!check_valid_query(token)) {
       if (token != NULL)
@@ -83,4 +86,38 @@ bool check_valid_query(tokenizer_t *token)
   return true;
 }
 
+counters_t *score_query(tokenizer_t *token, char *index_filename)
+{
+  FILE *fp;
+  counters_t *curr, local, global;
+  local = NULL;
 
+  if (token == NULL || index_filename == NULL)
+    return NULL;
+  fp = fopen(index_filename, "r");
+  index_t *index = index_load(fp);
+   
+  // Parse query based on query syntax described in REQUIREMENTS.md
+  for (int i = 0; i < token->num; i++) {
+    /* If the token is an "or" then we combine what we currently have
+     * as the "local" counter with the "global" counter.
+     * Otherwise, if the token is an "and" we ignore and continue appending
+     * to the local counter.
+     */
+    if (!(strcmp(token->words[i], "or") == 0)) {
+      // If not a logical operator, then we get the counter for curr word.
+      if (!(strcmp(token->words[i], "and") == 0)) {
+        /* If the word cannot be found then we continue. Otherwise, we perform
+         * an intersection of the current counter with local.
+         */
+        if ((curr = index_get(index, token->words[i])) != NULL) {
+          if (local == NULL)
+            hl
+        }
+      }
+    }
+  }
+
+  return NULL;
+
+}

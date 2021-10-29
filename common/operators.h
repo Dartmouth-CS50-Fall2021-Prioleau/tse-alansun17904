@@ -16,4 +16,6 @@ counters_t *intersections(counters_t *c1, counters_t *c2);
 
 counters_t *unions(counters_t *c1, counters_t *c2);
 
+counters_t *dup_counter(counters_t counter);
+
 #endif

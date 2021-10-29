@@ -36,6 +36,8 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include<stdio.h>
+#include<string.h>
+#include "file.h"
 #include "hashtable.h"
 #include "counters.h"
 #include "index.h"
@@ -232,6 +234,24 @@ bool index_add(index_t *index, char *word, int document_id)
   }
 }
 
+/* (description): The `index_get` function gets the counter associated with
+ * a given word. 
+ *
+ * (inputs): A string of a word that the user hopes to get from the index.
+ *
+ * (outputs): A pointer to a counters_t that is associated with that word
+ * in the index. A copy is not created, so any modification to this counter
+ * will also change index.
+ *
+ * (error handling): If the given word is NULL or it cannot be found, then
+ * NULL is returned.
+ */
+
+counters_t *index_get(index_t *index, char *word)
+{
+  return hashtable_find(index->table, word); 
+}
+
 /* (description): The `index_set` function sets the counter for a document ID
  * of a given word. This is useful for re-initializing the index file from 
  * the saved index. The function will modify the index being passed in.
@@ -269,6 +289,65 @@ bool index_set(index_t *index, char *word, int document_id, int count)
   return true;
 }
 
+/* (description): The `read_index_file` will read the contents of a file 
+ * produced by the indexer, and load this into an indexer data structure.
+ * This function assumes that the file if it exists is actually created by
+ * the indexer. This implies that the formatting of this file must conform
+ * to the format described in the `index.c` file.
+ *
+ * (inputs): A file pointer to the file that will be read.
+ *
+ * (outputs): The function will return an index data structure that contains
+ * all of the information from the file that has just been read in.
+ *
+ * (error handling): If memory allocation fails at any point the function will
+ * cause the program to terminate. This may result in memory leaks. Thus, the 
+ * user needs to be weary of this.
+ *
+ */
+index_t *index_load(FILE *fp)
+{
+  index_t *index;
+  char *word, *line;
+  int id, count, buff, num_read;
+  int line_count;
+
+  // Create a line and word buffer. 
+  line = NULL;
+  word = malloc(256);
+
+  assertp(word, "Word buffer could not be allocated.\n");
+
+  if (fp == NULL) {
+    free(word);
+    assertp(fp, "The file point is NULL.");
+  }
+
+  index = index_new();
+  /* Each line is characterized by a word following by pairs of integers. We
+   * loop through each line and read the word first,  then
+   * we continue with sscanf for the remaining digits.
+   */
+  line_count = lines_in_file(fp);
+  for (int i = 0; i < line_count; i++) {
+    // Read the word that defines the line.
+    line = freadlinep(fp);
+    sscanf(line, "%s%n", word, &buff);
+
+    while (buff < strlen(line)) {
+      /* We keep track of where we are relative to the start of the line, by 
+       * remembering how many characters we just read in. 
+       */
+      sscanf(line + buff, "%d %d%n", &id, &count, &num_read);
+      buff += num_read;
+      // Set the count for the word and associated doc ID.
+      index_set(index, word, id, count);
+    }
+    free(line);
+  }
+  free(word);
+  return index;
+}
 
 #ifdef UNIT_TEST
 /* Unit Tests for index.c
