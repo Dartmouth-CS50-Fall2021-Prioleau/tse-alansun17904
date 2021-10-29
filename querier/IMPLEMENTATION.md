@@ -3,7 +3,7 @@ Here contains a list of functions that need to be written for the querier and a 
 description of each one. 
 
 ## Common
-- [ ] Tokenizer - checks if a query is a valid query (must have all alphabetic
+- [x] Tokenizer - checks if a query is a valid query (must have all alphabetic
 characters; read until a new line; only whitespace other than \n at the end 
 must be spaces), tokenizes words (separate the query into many substrings 
 where each substring is a word that contains no whitespace).
