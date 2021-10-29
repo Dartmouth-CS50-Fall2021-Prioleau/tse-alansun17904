@@ -36,4 +36,4 @@ word.o: word.c word.h
 
 
 clean:
-	rm -f *.o *.x index test1.output test2.output testing.out
+	rm -f *.o *.x index test1.output test2.output testing.out tokenizer

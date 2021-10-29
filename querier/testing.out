@@ -1,0 +1,9 @@
+The following tests will run without checking for memory leaks.
+Error: invalid character detected, characters must be alphabetic.
+Error: there cannot be trailing or leading logical operators in the query.
+Error: there cannot be trailing or leading logical operators in the query.
+Error: invalid character detected, characters must be alphabetic.
+Error: there cannot be consecutive logical operators in the query.
+Error: there cannot be trailing or leading logical operators in the query.
+Error: there cannot be consecutive logical operators in the query.
+Query: 

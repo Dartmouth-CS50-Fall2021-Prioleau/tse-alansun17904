@@ -13,12 +13,15 @@ LIBS = ../libcs50/libcs50.a ../common/common.a
 querier: querier.o $(LIBS)
 	$(CC) querier.o $(LIBS) -o querier
 
-querier.o: querier.c ../common/tokenizer.h ../libcs50/hashtable.h ../libcs50/set.h
+querier.o: querier.c ../common/tokenizer.h ../common/index.h \
+				../libcs50/hashtable.h ../libcs50/counters.h
 	$(CC) $(CFLAGS) -c querier.c
 
 test: 
 	./testing.sh &> testing.out
 
+valgrind:
+	./testing.sh CHECK_MEMORY &> testing.out
 # Remove all the directories that start with test and end with a number.
 clean:
 	rm -rf testing.out

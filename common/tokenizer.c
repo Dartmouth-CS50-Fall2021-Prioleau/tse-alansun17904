@@ -104,7 +104,8 @@ void delete_tokenizer(tokenizer_t *tokenizer)
 void test_tokenizer(void);
 void test_deletion(void);
 
-int main(void) {
+int main(void)
+{
   test_tokenizer();
   test_deletion();
 }
@@ -112,13 +113,15 @@ int main(void) {
 /* A helper where given a string literal, it will create an dynamically
  * allocated version of this string.
  */
-char *make(char *string) {
+char *make(char *string)
+{
   char *s = malloc(strlen(string) + 1);
   strcpy(s, string);
   return s;
 }
 
-void test_tokenizer(void) {
+void test_tokenizer(void)
+{
   char *test;
   tokenizer_t *t;
   // Basic valid
@@ -155,7 +158,7 @@ void test_tokenizer(void) {
 
   // Lengthy valid
   t = tokenize(test = make("     hello world   this  is a test      of" \
-                  "         the      querier    tokenizer "));
+                  "         the      querier    tokenizer"));
   assert(t->num == 10);
   assert(strcmp(t->words[0], "hello") == 0);
   assert(strcmp(t->words[1], "world") == 0);
@@ -171,7 +174,8 @@ void test_tokenizer(void) {
   delete_tokenizer(t);
 }
 
-void test_deletion(void) {
+void test_deletion(void)
+{
   // Test invalid
   delete_tokenizer(NULL);
 }
