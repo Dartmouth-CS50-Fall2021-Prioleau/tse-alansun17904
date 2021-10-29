@@ -46,6 +46,6 @@ then we simply add the two values together.
 ```
 
 ## Querier 
-- [ ] Validate arguments - checks if the query is semantically valid (there must 
+- [x] Validate arguments - checks if the query is semantically valid (there must 
 be no starting or trailing logical arguments; there cannot be consecutive 
 logical arguments;

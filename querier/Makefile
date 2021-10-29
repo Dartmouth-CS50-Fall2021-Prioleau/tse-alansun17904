@@ -14,7 +14,7 @@ querier: querier.o $(LIBS)
 	$(CC) querier.o $(LIBS) -o querier
 
 querier.o: querier.c ../common/tokenizer.h ../common/index.h \
-				../libcs50/hashtable.h ../libcs50/counters.h
+				../libcs50/hashtable.h ../libcs50/counters.h ../common/operators.h
 	$(CC) $(CFLAGS) -c querier.c
 
 test: 

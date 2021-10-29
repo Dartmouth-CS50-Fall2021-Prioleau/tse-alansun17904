@@ -6,15 +6,19 @@
 #include "tokenizer.h"
 #include "hashtable.h"
 #include "counters.h"
+#include "operators.h"
 #include "index.h"
 
 
 bool check_valid_query(tokenizer_t *token);
+void parse_args(int argc, char *argv[]);
 
-int main(void)
+int main(int argc, char *argv[])
 {
   char *query; 
   tokenizer_t *token;
+
+  parse_args(argc, argv); 
 
   printf("Query: ");
   while ((query = readlinep())) {
@@ -29,6 +33,25 @@ int main(void)
     }
   }
   return 0;
+}
+
+void parse_args(int argc, char *argv[])
+{
+  // There can only be two arguments.
+  FILE *fp;
+
+  if (argc != 3) {
+    fprintf(stderr, "usage: ./querier <crawlerDirectory> <indexFilename>\n");
+    exit(1);
+  } else if (!is_crawler_dir(argv[1])) {
+    fprintf(stderr, "given directory argument was not a directoy created" \
+                    " by the crawler.\n");
+    exit(2);
+  } else if ((fp = fopen(argv[2], "r")) == NULL) {
+    fprintf(stderr, "given index file cannot be read.\n");
+    exit(3);
+  }
+  fclose(fp);
 }
 
 bool check_valid_query(tokenizer_t *token)
