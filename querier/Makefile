@@ -1,0 +1,26 @@
+# Alan Sun
+# CS50, Fall 2021, Tiny Search Engine: Querier
+# Makefile for Querier (querier/Makefile)
+# 
+# This Makefile builds and compiles the querier program in querier.c.
+
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I../libcs50 -I../common
+CC = gcc
+LIBS = ../libcs50/libcs50.a ../common/common.a
+
+.PHONY: clean test test-valgrind
+
+querier: querier.o $(LIBS)
+	$(CC) querier.o $(LIBS) -o querier
+
+querier.o: querier.c ../common/tokenizer.h ../libcs50/hashtable.h ../libcs50/set.h
+	$(CC) $(CFLAGS) -c querier.c
+
+test: 
+	./testing.sh &> testing.out
+
+# Remove all the directories that start with test and end with a number.
+clean:
+	rm -rf testing.out
+	rm -rf $$(ls | grep "^test[0-9]*$$" | tr "\n" " ") 
+	rm -rf *.x *.o
