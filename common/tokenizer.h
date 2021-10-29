@@ -14,7 +14,7 @@
 #define TOKENIZER_H
 
 typedef struct tokenizer {
-  char *words[];
+  char **words;
   int num;
 } tokenizer_t;
 
