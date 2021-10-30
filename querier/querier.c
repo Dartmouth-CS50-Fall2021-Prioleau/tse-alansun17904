@@ -31,8 +31,9 @@ int main(int argc, char *argv[])
         delete_tokenizer(token);
       free(query);
     } else {
-      printf("valid query\n");
-
+      counters_t *count = score_query(token, argv[2]);  
+      counters_print(count, stdin); 
+      counters_delete(count);
     }
   }
   return 0;
@@ -89,7 +90,7 @@ bool check_valid_query(tokenizer_t *token)
 counters_t *score_query(tokenizer_t *token, char *index_filename)
 {
   FILE *fp;
-  counters_t *curr, local, global;
+  counters_t *curr, *local, *global, *temp;
   local = NULL;
 
   if (token == NULL || index_filename == NULL)
@@ -111,13 +112,24 @@ counters_t *score_query(tokenizer_t *token, char *index_filename)
          * an intersection of the current counter with local.
          */
         if ((curr = index_get(index, token->words[i])) != NULL) {
+          // At the first word.
           if (local == NULL)
-            hl
+            local = dup_counter(curr);
+          temp = local;
+          local = intersections(local, curr);
+          counters_delete(temp);
         }
+      }
+    // We get an "or" so now we must perform union.
+    } else {
+      if (global == NULL) {
+        global = local;
+      } else {
+        temp = global;
+        global = unions(local, global);
+        counters_delete(temp);
       }
     }
   }
-
-  return NULL;
-
+  return global == NULL ? local : global; 
 }

@@ -23,7 +23,7 @@ typedef struct carg {
 /* (description): Find the intersection of two counters and stores the result in
  * a new counter that is dynamically allocated and returned to the user. Note,
  * that the user must free this struct using the counters_delete function.
- *
+*
  * (inputs): Two counters, both arguments must be non-NULL. If either is NULL,
  * then NULL is returned. 
  *
@@ -96,20 +96,20 @@ counters_t *unions(counters_t *c1, counters_t *c2)
 }
 
 /* (description): Given a counter, this function will dynamically duplicate
- * it, copying its items and keys as well as 
+ * it, copying its items and keys.
  *
- * (inputs):
+ * (inputs): A counter whose contents are to be copied. If the that is given 
+ * is NULL, then NULL is returned.
  *
- * (outputs):
- *
- * (error handling):
- *
+ * (outputs): A pointer to a newly dynamically allocated counter.
  */
 counters_t *dup_counter(counters_t *counter)
 {
-  
-
-
+  if (counter == NULL)
+    return NULL;
+  counters_t *new = counters_new();
+  counters_iterate(counter, new, copy_counters);
+  return new;
 }
 
 static void copy_counters(void *arg, const int key, const int count)
