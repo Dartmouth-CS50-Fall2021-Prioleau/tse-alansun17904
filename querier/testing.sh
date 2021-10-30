@@ -14,6 +14,8 @@
 # If the user provides a CHECK_MEMORY argument, then the program will run
 # valgrind on all the subsequent commands.
 
+DIR="/thayerfs/courses/21fall/cosc050.02/workspace/cs50tse/tse-output"
+
 if [ ! -z "$1" ]; then
   if [ $1 == "CHECK_MEMORY" ]; then
     VALGRIND="valgrind --leak-check=full --show-leak-kinds=all" 
@@ -33,5 +35,27 @@ echo "  4892 " >> test1_invalids
 echo "  this looks right and or is not" >> test1_invalids
 echo " hello this is invalid or" >> test1_invalids
 echo " hello and this is or and this is and" >> test1_invalids
-$VALGRIND ./querier < test1_invalids
+$VALGRIND ./querier $DIR/letters-depth-6 $DIR/letters-index-6 < test1_invalids
 rm -f test1_invalids
+
+# Basic commands, ANDs only
+touch test2_basic
+echo "dartmouth college" >> test2_basic
+echo "algorithms" >> test2_basic
+echo "  tse playground for " >> test2_basic
+echo " tse " >> test2_basic
+echo " algorithm and for " >> test2_basic
+echo " computational and biology " >> test2_basic
+$VALGRIND ./querier $DIR/letters-depth-6 $DIR/letters-index-6 < test2_basic 
+rm -f test2_basic
+
+# Basic commands, ORs only
+touch test3_basic
+echo "dartmouth or college" >> test3_basic
+echo "algorithms or computational or biology " >> test3_basic
+echo "     tse or playground " >> test3_basic
+echo "     biology or tse or computational" >> test3_basic
+echo "    college or tse or nonexistent or algorithms " >> test3_basic
+$VALGRIND ./querier $DIR/letters-depth-6 $DIR/letters-index-6 < test3_basic 
+rm -f test3_basic
+

@@ -13,29 +13,41 @@
 
 bool check_valid_query(tokenizer_t *token);
 void parse_args(int argc, char *argv[]);
-counters_t *score_query(tokenizer_t *token, char *index_filename);
+counters_t *score_query(tokenizer_t *token, index_t *index);
 
 int main(int argc, char *argv[])
 {
   char *query; 
   tokenizer_t *token;
+  index_t *index;
+  FILE *fp;
 
   parse_args(argc, argv); 
-
+  fp = fopen(argv[2], "r");
+  index = index_load(fp);
+ 
   printf("Query: ");
+
   while ((query = readlinep())) {
     printf("%s\n", query);
     token = tokenize(query);
-    if (!check_valid_query(token)) {
-      if (token != NULL)
-        delete_tokenizer(token);
-      free(query);
-    } else {
-      counters_t *count = score_query(token, argv[2]);  
-      counters_print(count, stdin); 
-      counters_delete(count);
+    if (check_valid_query(token)) {
+      counters_t *count = score_query(token, index);  
+      if (count == NULL) {
+        printf("Matches 0 documents.\n");
+      } else {
+        counters_print(count, stdout); 
+        printf("\n");
+        counters_delete(count);
+      }
     }
+    printf("Query: ");
+    free(query);
+    if (token != NULL)
+      delete_tokenizer(token);
   }
+  fclose(fp);
+  index_delete(index);
   return 0;
 }
 
@@ -87,17 +99,11 @@ bool check_valid_query(tokenizer_t *token)
   return true;
 }
 
-counters_t *score_query(tokenizer_t *token, char *index_filename)
+counters_t *score_query(tokenizer_t *token, index_t *index)
 {
-  FILE *fp;
-  counters_t *curr, *local, *global, *temp;
+  counters_t *curr, *local = NULL, *global = NULL, *temp;
   local = NULL;
-
-  if (token == NULL || index_filename == NULL)
-    return NULL;
-  fp = fopen(index_filename, "r");
-  index_t *index = index_load(fp);
-   
+    
   // Parse query based on query syntax described in REQUIREMENTS.md
   for (int i = 0; i < token->num; i++) {
     /* If the token is an "or" then we combine what we currently have
@@ -120,16 +126,35 @@ counters_t *score_query(tokenizer_t *token, char *index_filename)
           counters_delete(temp);
         }
       }
-    // We get an "or" so now we must perform union.
+    // We get an "or" so now we must perform union between local and global.
     } else {
       if (global == NULL) {
         global = local;
-      } else {
+        local = NULL;
+      } else if (local != NULL) {
         temp = global;
         global = unions(local, global);
         counters_delete(temp);
+        counters_delete(local);
+        local = NULL;
       }
     }
   }
-  return global == NULL ? local : global; 
+  // Nothing found.
+  if (global == NULL && local == NULL) {
+    return NULL;
+  // Query only had ANDs
+  } else if (global == NULL) {
+    return local;
+  // Right-hand-side of OR could not be found.
+  } else if (global != NULL && local == NULL) {
+    return global;
+  // Merge right-hand-side of OR with left-hand-side.
+  } else {
+    temp = global;
+    global = unions(local, global);
+    counters_delete(temp);
+    counters_delete(local);
+  }
+  return global;
 }

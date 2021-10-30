@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include "tokenizer.h"
+
 /* Alan Sun
  * CS50, Fall 2021, Tiny Search Engine: Querier
  * Module for the tokenizer (tokenizer.c)
