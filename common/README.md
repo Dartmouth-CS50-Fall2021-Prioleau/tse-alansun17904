@@ -18,6 +18,28 @@ need to be re-linked. Otherwise, its API endpoints may not be updated.**
 
 ## Structures
 
+### `tokenizer`
+The tokenizer structure is useful to the querier, it stores the results of the tokenized query.
+This structure represents a simple wrapper of an array of strings and an integer denoting the 
+length of this array. Since this structure itself is easy to digest and described in `tokenizer.c`, 
+we will proceed by describing some of the functionalities of this structure. The unit tests for this
+structure are self-contained within the `tokenizer.c` module.
+
+#### `tokenize`
+This function takes a query string as input and returns a newly created `tokenizer_t` structure. 
+Please note that the user must call `delete_tokenizer` when they are done with the structure to 
+avoid memory leaks. 
+```
+tokenizer_t *tokenize(char *query);
+```
+
+#### `delete_tokenizer`
+Frees all of the memory associated with a given `tokenizer_t *` structure. We note that this
+function does not free the string that the tokenizer is pointing at. If the string is dynamically
+allocated, the user needs to free this manually after freeing the tokenizer.
+
+
+
 ### `index`
 Here we describe the index data structure that is used throughout indexer. The details of how 
 specifically this structure works and the motivation for this is in `index.c`. So, we will summarize
@@ -89,13 +111,41 @@ contents of this pointer will be all lower case letters.
 char *NormalizeWord(char *word);
 ```
 
+### `operators`
+This module implements some operators that can be performed on counters, namely, intersection
+and unions. This is also extremely useful for querier because they can be used to represent 
+the logical relationships of AND and OR. Here, we not describe the specific implementations of
+these individual functions or the helper functions these functions call. This detailed information
+can be found in the `operators.c` module.
+#### `counters_t *intersections(counters_t *c1, counters_t *c2);`
+The intersections function creates a newly dynamically allocated counter that represents the
+intersection between the two given counters. If either of the counters is NULL, then NULL
+is returned. If the same key appears in both counters, this key will be added to the newly 
+dynamically allocated counter and the item of this key will be the minimum of the count in
+`c1` and the count in `c2`. If there is no intersections between the two given counters, then
+an empty counter is returned. Please note that the user must free the resulting counter, once
+they are done working with it. Both of the provided counters remain unchanged.
+
+#### `counters_t *unions(counters_t *c1, counters_t *c2);`
+Find the union of two counters and stores the result in a newly dynmically allocated counter,
+similar to counters intersection. If the same key exists in both counters, then this key will
+be added to the new counter and its count will be the summation of the counts in `c1` and `c2`.
+Similar, to `intersections` the user must free the resulting counter when they are done working
+with it to prevent memory leaks. Both of the provided counters remain unchanged.
+
+#### `counters_t *dup_counter(counters_t *counter);`
+Creates a dynamically allocated duplicate of the given counter. This must be freed by the user
+after they are done working with it. Note that the given counter will be left unchanged.
+
 ## Testing
 There are unit tests are associated with the index data structure and the functions associated with 
 this structure. To run the test one can run the following command from `make`:
 ```
 make test_index
+make test_tokenizer
+make test_operators
 ```
-This will compile the index and run all of the unit tests. Afterwards, the user can clean up the
+This will compile the index, tokenizer, and operators and run all of the unit tests. Afterwards, the user can clean up the
 results of the tests using:
 ```
 make clean
