@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include "tokenizer.h"
+#include "word.h"
 
 /* Alan Sun
  * CS50, Fall 2021, Tiny Search Engine: Querier
@@ -63,6 +64,7 @@ tokenizer_t *tokenize(char *query)
       return NULL;
     } else if ((isspace(c0) || c0 == '\0') && isalpha(c1)) {
       tokens->words[tokens->num] = query + curr;
+      NormalizeWord(tokens->words[tokens->num]);
       (tokens->num)++;
     // If current character is a space, then we replace it with a null byte.
     } else if (isspace(c1)) {

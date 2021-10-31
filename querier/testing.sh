@@ -40,6 +40,7 @@ rm -f test1_invalids
 
 # Basic commands, ANDs only
 touch test2_basic
+echo "for" >> test2_basic
 echo "dartmouth college" >> test2_basic
 echo "algorithms" >> test2_basic
 echo "  tse playground for " >> test2_basic
@@ -59,3 +60,33 @@ echo "    college or tse or nonexistent or algorithms " >> test3_basic
 $VALGRIND ./querier $DIR/letters-depth-6 $DIR/letters-index-6 < test3_basic 
 rm -f test3_basic
 
+# Simple chained ANDs and ORs with only one document
+touch test4
+# basket: 1 20; products: 1 3; erotica: 1 1; fiction: 1 6; add 1 21
+# (20 or 1 or 21) = matches 1 with 42
+echo "basket or products and erotica and fiction or add" >> test4
+# 1 and 0 or 1 = matches 1 with 1
+echo "stock and nonexistent or christian and cultural and soumission" >> test4
+# 1 or 6 or 1 and 1 or 1 or 1 = 7 or 2 or 1 or 1 = matches 1 with 11
+echo "little or fiction or academic and contemporary or fantasy or objects" >> test4
+# matches 1 with 2 
+echo "free and light and assigned and precious or basket and search and stories" >> test4
+$VALGRIND ./querier $DIR/toscrape-depth-0 $DIR/toscrape-index-0 < test4
+rm -f test4
+
+# Simple chained ANDs and ORs with different case, should be same output as above.
+touch test5
+# basket: 1 20; products: 1 3; erotica: 1 1; fiction: 1 6; add 1 21
+# (20 or 1 or 21) = matches 1 with 42
+echo "basKeT or ProductS and erOticA and fictIon or adD" >> test5
+# 1 and 0 or 1 = matches 1 with 1
+echo "stocK aNd NoneXisTent or ChrIsTiaN And CuLTurAl And SouMIssion" >> test5
+# 1 or 6 or 1 and 1 or 1 or 1 = 7 or 2 or 1 or 1 = matches 1 with 11
+echo "littlE or fictioN or AcademiC and conTemporAry oR FanTaSy or obJects" >> test5
+# matches 1 with 2 
+echo "free aNd Light and Assigned and precious or basket and search and stories" >> test5
+$VALGRIND ./querier $DIR/toscrape-depth-0 $DIR/toscrape-index-0 < test5
+rm -f test5
+
+# Blackbox testing with fuzzquery.c
+./fuzzquery $DIR/wikipedia-index-2 20 0 | $VALGRIND ./querier $DIR/wikipedia-depth-2 $DIR/wikipedia-index-2

@@ -10,12 +10,20 @@ LIBS = ../common/common.a ../libcs50/libcs50.a
 
 .PHONY: clean test test-valgrind
 
+all: querier fuzzquery
+
 querier: querier.o $(LIBS)
 	$(CC) querier.o $(LIBS) -o querier
 
 querier.o: querier.c ../common/tokenizer.h ../common/index.h \
 				../libcs50/hashtable.h ../libcs50/counters.h ../common/operators.h
 	$(CC) $(CFLAGS) -c querier.c
+
+fuzzquery: fuzzquery.o $(LIBS)
+	$(CC) fuzzquery.o $(LIBS) -o fuzzquery
+
+fuzzquery.o: fuzzquery.c ../libcs50/file.h ../libcs50/memory.h
+	$(CC) -std=gnu11 -I../libcs50 -c fuzzquery.c
 
 test: 
 	./testing.sh &> testing.out
