@@ -1,3 +1,8 @@
+Implementation Spec TODO:
+- Specific Function Prototypes
+  - Brief description of what it does
+- List of helper functions
+
 # Functions to-Write
 Here contains a list of functions that need to be written for the querier and a brief 
 description of each one. 
