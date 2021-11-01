@@ -21,11 +21,11 @@ url (the real URL of the page). Note that these pages are sorted in no particula
 order. A sample output is shown below:
 ```
 Query: liar OR cwa autoconfirmed southernspaces AND clinger OR schwaz 
-Matches 10 documents (unranked):
+Matches 10 documents (ranked):
+score    2 doc 1546: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Robotics.html
 score    1 doc 1422: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Mining_engineering.html
 score    1 doc 1666: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Algorithm.html
 score    1 doc 1639: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Undecidable_problem.html
-score    2 doc 1546: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Robotics.html
 score    1 doc 1108: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/W._W.html
 score    1 doc  370: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Shonda_Rhimes.html
 score    1 doc  368: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Scandal_(TV_series).html

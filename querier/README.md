@@ -18,9 +18,7 @@ The querier will tokenize a given query, if it is syntatically and semantically 
 it will then proceed to search the file produced by the indexer for webpages that most
 closely match the given query.
 
-The querier will the return a list of URLs and their respective scores to the user. *Please
-note that I was unable to implement a sorting functionality that would allow the query to
-sort its results before presenting it to the user.*
+The querier will the return a list of URLs and their respective scores to the user. 
 
 ## Usage
 To run the querier, one needs to first compile the program by running the following sequences
