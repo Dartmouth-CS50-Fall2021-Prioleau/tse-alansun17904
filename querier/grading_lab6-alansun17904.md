@@ -21,6 +21,7 @@
 |**TOTAL**|**91**|
 
 &nbsp;
+
 ## (10/10) Delivery
 
 * (3) Proper git tag `lab6submit`.
