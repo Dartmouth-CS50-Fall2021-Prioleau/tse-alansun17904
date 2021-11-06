@@ -1,0 +1,684 @@
+make: Nothing to be done for 'all'.
+
+Invalid tests...
+
+usage: ./querier: pageDirectory indexFilename
+usage: ./querier: '../common' is not a crawler data directory
+index: cannot open index file '../index'
+./querier: cannot load index from '../index'
+
+TEST 0
+
+Query: and dartmouth 
+Error: 'and' cannot be first
+Query: or dartmouth 
+Error: 'or' cannot be first
+Query: dartmouth or 
+Error: 'or' cannot be last
+Query: dartmouth and 
+Error: 'and' cannot be last
+Query: mit and or dartmouth 
+Error: 'and' and 'or' cannot be adjacent
+Query: boston or and hanover 
+Error: 'or' and 'and' cannot be adjacent
+Error: bad character '6' in query.
+Error: bad character '!' in query.
+Error: bad character '-' in query.
+
+TEST 1
+
+Query: years 
+Matches 7 documents (ranked):
+score   4 doc  18: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/sapiens-a-brief-history-of-humankind_996/index.html
+score   3 doc  15: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html
+score   2 doc   9: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html
+score   2 doc  16: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html
+score   2 doc  19: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/sharp-objects_997/index.html
+score   1 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html
+score   1 doc  13: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-black-maria_991/index.html
+-----------------------------------------------
+Query: book or story 
+Matches 16 documents (ranked):
+score   9 doc  14: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics_992/index.html
+score   4 doc  15: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html
+score   3 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/olio_984/index.html
+score   3 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html
+score   2 doc  11: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/shakespeares-sonnets_989/index.html
+score   2 doc  21: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/tipping-the-velvet_999/index.html
+score   2 doc  49: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/art_25/index.html
+score   2 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html
+score   1 doc  16: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html
+score   1 doc  18: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/sapiens-a-brief-history-of-humankind_996/index.html
+score   1 doc  57: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/sports-and-games_17/index.html
+score   1 doc  62: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/religion_12/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+score   1 doc  19: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/sharp-objects_997/index.html
+score   1 doc  63: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/childrens_11/index.html
+score   1 doc  68: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/classics_6/index.html
+-----------------------------------------------
+Query: book and history 
+Matches 7 documents (ranked):
+score   2 doc  15: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-coming-woman-a-novel-based-on-the-life-of-the-infamous-feminist-victoria-woodhull_993/index.html
+score   1 doc  14: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-boys-in-the-boat-nine-americans-and-their-epic-quest-for-gold-at-the-1936-berlin-olympics_992/index.html
+score   1 doc  16: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html
+score   1 doc  18: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/sapiens-a-brief-history-of-humankind_996/index.html
+score   1 doc  49: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/art_25/index.html
+score   1 doc  57: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/sports-and-games_17/index.html
+score   1 doc  62: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/religion_12/index.html
+-----------------------------------------------
+Query: art price 
+Matches 2 documents (ranked):
+score   2 doc  13: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-black-maria_991/index.html
+score   1 doc   9: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html
+-----------------------------------------------
+Query: music band or painting 
+Matches 5 documents (ranked):
+score   3 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+score   1 doc  60: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/music_14/index.html
+score   1 doc  70: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/historical-fiction_4/index.html
+score   1 doc  73: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books_1/index.html
+-----------------------------------------------
+Query: modern music or classical poem 
+Matches 1 documents (ranked):
+score   1 doc  56: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/add-a-comment_18/index.html
+-----------------------------------------------
+Query: political nonfiction or modern art or humor story 
+Matches 6 documents (ranked):
+score   1 doc  42: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/history_32/index.html
+score   1 doc  56: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/add-a-comment_18/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/page-2.html
+score   1 doc  49: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/art_25/index.html
+score   1 doc  63: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/childrens_11/index.html
+score   1 doc  68: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/classics_6/index.html
+-----------------------------------------------
+Query: eat fat get thin or the time keeper or the black maria 
+Matches 12 documents (ranked):
+score   6 doc  13: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-black-maria_991/index.html
+score   1 doc  27: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/health_47/index.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/index.html
+score   1 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/our-band-could-be-your-life-scenes-from-the-american-indie-underground-1981-1991_985/index.html
+score   1 doc   8: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/rip-it-up-and-start-again_986/index.html
+score   1 doc   9: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html
+score   1 doc  10: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/set-me-free_988/index.html
+score   1 doc  11: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/shakespeares-sonnets_989/index.html
+score   1 doc  12: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/starving-hearts-triangular-trade-trilogy-1_990/index.html
+score   1 doc  51: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/poetry_23/index.html
+score   1 doc  64: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/fiction_10/index.html
+score   1 doc  73: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books_1/index.html
+-----------------------------------------------
+Query: paris kitchen recipes baking or white cat bear whale or best reviews 
+Matches 6 documents (ranked):
+score   2 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html
+score   1 doc  41: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/food-and-drink_33/index.html
+score   1 doc   3: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/its-only-the-himalayas_981/index.html
+score   1 doc  63: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/category/books/childrens_11/index.html
+score   1 doc   4: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/libertarianism-for-beginners_982/index.html
+score   1 doc  16: http://old-www.cs.dartmouth.edu/~cs50/data/tse/toscrape/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html
+-----------------------------------------------
+
+
+Running letters-depth-0 letters-index-0 1 0 199009...
+./fuzzquery: generating 5 queries from 7 words
+Queries: 
+this OR for 
+rustle meeting 
+for home AND vermouth event the 
+the OR page 
+lancing 
+
+
+Query: this or for 
+Matches 1 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: rustle meeting 
+No documents match.
+-----------------------------------------------
+Query: for home and vermouth event the 
+No documents match.
+-----------------------------------------------
+Query: the or page 
+Matches 1 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: lancing 
+No documents match.
+-----------------------------------------------
+
+
+Running letters-depth-1 letters-index-1 1 0 199090...
+./fuzzquery: generating 5 queries from 8 words
+Queries: 
+playground OR home tse OR algorithm 
+mutinous 
+grossest this AND this 
+Thalia AND tse page 
+playground AND algorithm home AND the 
+
+
+Query: playground or home tse or algorithm 
+Matches 2 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+Query: mutinous 
+No documents match.
+-----------------------------------------------
+Query: grossest this and this 
+No documents match.
+-----------------------------------------------
+Query: thalia and tse page 
+No documents match.
+-----------------------------------------------
+Query: playground and algorithm home and the 
+No documents match.
+-----------------------------------------------
+
+
+Running letters-depth-2 letters-index-2 1 0 199099...
+./fuzzquery: generating 5 queries from 11 words
+Queries: 
+algorithm OR playground 
+this 
+the breadth AND first search search 
+algorithm home 
+the infinitesimal's page 
+
+
+Query: algorithm or playground 
+Matches 2 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: this 
+Matches 1 documents (ranked):
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: the breadth and first search search 
+No documents match.
+-----------------------------------------------
+Query: algorithm home 
+Matches 1 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+Error: bad character ''' in query.
+
+
+Running letters-depth-3 letters-index-3 1 0 199900...
+./fuzzquery: generating 5 queries from 15 words
+Queries: 
+chalice AND Thessalonian page biology biology tse 
+computational OR biology AND criticized OR page 
+the this biology revenged AND Persian's 
+playground unclearer page OR conceit's 
+depth home AND playground playground 
+
+
+Query: chalice and thessalonian page biology biology tse 
+No documents match.
+-----------------------------------------------
+Query: computational or biology and criticized or page 
+Matches 2 documents (ranked):
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/C.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Error: bad character ''' in query.
+Error: bad character ''' in query.
+Query: depth home and playground playground 
+No documents match.
+-----------------------------------------------
+
+
+Running letters-depth-4 letters-index-4 1 0 199909...
+./fuzzquery: generating 5 queries from 20 words
+Queries: 
+wraparound 
+page OR impugning fast OR for 
+first OR page AND Ed's 
+for Tombaugh OR fast 
+algorithm 
+
+
+Query: wraparound 
+No documents match.
+-----------------------------------------------
+Query: page or impugning fast or for 
+Matches 8 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+score   1 doc   3: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
+score   1 doc   4: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/E.html
+score   1 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/G.html
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/F.html
+score   1 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/D.html
+score   1 doc   8: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/C.html
+-----------------------------------------------
+Error: bad character ''' in query.
+Query: for tombaugh or fast 
+Matches 1 documents (ranked):
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/F.html
+-----------------------------------------------
+Query: algorithm 
+Matches 1 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+
+
+Running letters-depth-5 letters-index-5 1 0 199990...
+./fuzzquery: generating 5 queries from 22 words
+Queries: 
+cartwheeled breadth 
+binders OR coding AND playground 
+algorithm commending OR computational for first AND depth 
+dishonored huffman playground OR transform OR Hartman's bravo 
+interfaith home AND depth search algorithm 
+
+
+Query: cartwheeled breadth 
+No documents match.
+-----------------------------------------------
+Query: binders or coding and playground 
+No documents match.
+-----------------------------------------------
+Query: algorithm commending or computational for first and depth 
+No documents match.
+-----------------------------------------------
+Error: bad character ''' in query.
+Query: interfaith home and depth search algorithm 
+No documents match.
+-----------------------------------------------
+
+
+Running letters-depth-6 letters-index-6 1 0 199999...
+./fuzzquery: generating 5 queries from 22 words
+Queries: 
+page fast AND depth OR graph AND home 
+home first algorithm OR traversal AND Guatemala huffman 
+eniac search 
+matrix knights OR canine 
+coding tse search OR the search OR playground 
+
+
+Query: page fast and depth or graph and home 
+Matches 1 documents (ranked):
+score   1 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/G.html
+-----------------------------------------------
+Query: home first algorithm or traversal and guatemala huffman 
+No documents match.
+-----------------------------------------------
+Query: eniac search 
+No documents match.
+-----------------------------------------------
+Query: matrix knights or canine 
+No documents match.
+-----------------------------------------------
+Query: coding tse search or the search or playground 
+Matches 1 documents (ranked):
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+
+
+Running toscrape-depth-1 toscrape-index-1 1 199000...
+usage: ./fuzzquery: invalid randomSeed ''
+Queries: 
+
+
+
+
+
+Running wikipedia-depth-1 wikipedia-index-1 1 199001...
+usage: ./fuzzquery: invalid randomSeed ''
+Queries: 
+
+
+
+
+
+Running letters-depth-0 letters-index-0 1 1 199009...
+./fuzzquery: generating 5 queries from 7 words
+Queries: 
+this OR for 
+rustle meeting 
+for home AND vermouth event the 
+the OR page 
+lancing 
+
+
+==26307== Memcheck, a memory error detector
+==26307== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26307== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26307== Command: ./querier /thayerfs/letters-depth-0 /thayerfs/letters-index-0
+==26307== 
+Query: this or for 
+Matches 1 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: rustle meeting 
+No documents match.
+-----------------------------------------------
+Query: for home and vermouth event the 
+No documents match.
+-----------------------------------------------
+Query: the or page 
+Matches 1 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: lancing 
+No documents match.
+-----------------------------------------------
+==26307== 
+==26307== HEAP SUMMARY:
+==26307==     in use at exit: 0 bytes in 0 blocks
+==26307==   total heap usage: 84 allocs, 84 frees, 24,739 bytes allocated
+==26307== 
+==26307== All heap blocks were freed -- no leaks are possible
+==26307== 
+==26307== For lists of detected and suppressed errors, rerun with: -s
+==26307== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-1 letters-index-1 1 1 199090...
+./fuzzquery: generating 5 queries from 8 words
+Queries: 
+playground OR home tse OR algorithm 
+mutinous 
+grossest this AND this 
+Thalia AND tse page 
+playground AND algorithm home AND the 
+
+
+==26312== Memcheck, a memory error detector
+==26312== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26312== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26312== Command: ./querier /thayerfs/letters-depth-1 /thayerfs/letters-index-1
+==26312== 
+Query: playground or home tse or algorithm 
+Matches 2 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+Query: mutinous 
+No documents match.
+-----------------------------------------------
+Query: grossest this and this 
+No documents match.
+-----------------------------------------------
+Query: thalia and tse page 
+No documents match.
+-----------------------------------------------
+Query: playground and algorithm home and the 
+No documents match.
+-----------------------------------------------
+==26312== 
+==26312== HEAP SUMMARY:
+==26312==     in use at exit: 0 bytes in 0 blocks
+==26312==   total heap usage: 90 allocs, 90 frees, 25,102 bytes allocated
+==26312== 
+==26312== All heap blocks were freed -- no leaks are possible
+==26312== 
+==26312== For lists of detected and suppressed errors, rerun with: -s
+==26312== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-2 letters-index-2 1 1 199099...
+./fuzzquery: generating 5 queries from 11 words
+Queries: 
+algorithm OR playground 
+this 
+the breadth AND first search search 
+algorithm home 
+the infinitesimal's page 
+
+
+==26325== Memcheck, a memory error detector
+==26325== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26325== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26325== Command: ./querier /thayerfs/letters-depth-2 /thayerfs/letters-index-2
+==26325== 
+Query: algorithm or playground 
+Matches 2 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: this 
+Matches 1 documents (ranked):
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Query: the breadth and first search search 
+No documents match.
+-----------------------------------------------
+Query: algorithm home 
+Matches 1 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+Error: bad character ''' in query.
+==26325== 
+==26325== HEAP SUMMARY:
+==26325==     in use at exit: 0 bytes in 0 blocks
+==26325==   total heap usage: 125 allocs, 125 frees, 34,946 bytes allocated
+==26325== 
+==26325== All heap blocks were freed -- no leaks are possible
+==26325== 
+==26325== For lists of detected and suppressed errors, rerun with: -s
+==26325== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-3 letters-index-3 1 1 199900...
+./fuzzquery: generating 5 queries from 15 words
+Queries: 
+chalice AND Thessalonian page biology biology tse 
+computational OR biology AND criticized OR page 
+the this biology revenged AND Persian's 
+playground unclearer page OR conceit's 
+depth home AND playground playground 
+
+
+==26327== Memcheck, a memory error detector
+==26327== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26327== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26327== Command: ./querier /thayerfs/letters-depth-3 /thayerfs/letters-index-3
+==26327== 
+Query: chalice and thessalonian page biology biology tse 
+No documents match.
+-----------------------------------------------
+Query: computational or biology and criticized or page 
+Matches 2 documents (ranked):
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/C.html
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+Error: bad character ''' in query.
+Error: bad character ''' in query.
+Query: depth home and playground playground 
+No documents match.
+-----------------------------------------------
+==26327== 
+==26327== HEAP SUMMARY:
+==26327==     in use at exit: 0 bytes in 0 blocks
+==26327==   total heap usage: 137 allocs, 137 frees, 26,604 bytes allocated
+==26327== 
+==26327== All heap blocks were freed -- no leaks are possible
+==26327== 
+==26327== For lists of detected and suppressed errors, rerun with: -s
+==26327== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-4 letters-index-4 1 1 199909...
+./fuzzquery: generating 5 queries from 20 words
+Queries: 
+wraparound 
+page OR impugning fast OR for 
+first OR page AND Ed's 
+for Tombaugh OR fast 
+algorithm 
+
+
+==26367== Memcheck, a memory error detector
+==26367== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26367== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26367== Command: ./querier /thayerfs/letters-depth-4 /thayerfs/letters-index-4
+==26367== 
+Query: wraparound 
+No documents match.
+-----------------------------------------------
+Query: page or impugning fast or for 
+Matches 8 documents (ranked):
+score   2 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+score   1 doc   3: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
+score   1 doc   4: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/E.html
+score   1 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/G.html
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/F.html
+score   1 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/D.html
+score   1 doc   8: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/C.html
+-----------------------------------------------
+Error: bad character ''' in query.
+Query: for tombaugh or fast 
+Matches 1 documents (ranked):
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/F.html
+-----------------------------------------------
+Query: algorithm 
+Matches 1 documents (ranked):
+score   1 doc   2: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/A.html
+-----------------------------------------------
+==26367== 
+==26367== HEAP SUMMARY:
+==26367==     in use at exit: 0 bytes in 0 blocks
+==26367==   total heap usage: 229 allocs, 229 frees, 64,872 bytes allocated
+==26367== 
+==26367== All heap blocks were freed -- no leaks are possible
+==26367== 
+==26367== For lists of detected and suppressed errors, rerun with: -s
+==26367== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-5 letters-index-5 1 1 199990...
+./fuzzquery: generating 5 queries from 22 words
+Queries: 
+cartwheeled breadth 
+binders OR coding AND playground 
+algorithm commending OR computational for first AND depth 
+dishonored huffman playground OR transform OR Hartman's bravo 
+interfaith home AND depth search algorithm 
+
+
+==26379== Memcheck, a memory error detector
+==26379== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26379== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26379== Command: ./querier /thayerfs/letters-depth-5 /thayerfs/letters-index-5
+==26379== 
+Query: cartwheeled breadth 
+No documents match.
+-----------------------------------------------
+Query: binders or coding and playground 
+No documents match.
+-----------------------------------------------
+Query: algorithm commending or computational for first and depth 
+No documents match.
+-----------------------------------------------
+Error: bad character ''' in query.
+Query: interfaith home and depth search algorithm 
+No documents match.
+-----------------------------------------------
+==26379== 
+==26379== HEAP SUMMARY:
+==26379==     in use at exit: 0 bytes in 0 blocks
+==26379==   total heap usage: 169 allocs, 169 frees, 18,285 bytes allocated
+==26379== 
+==26379== All heap blocks were freed -- no leaks are possible
+==26379== 
+==26379== For lists of detected and suppressed errors, rerun with: -s
+==26379== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running letters-depth-6 letters-index-6 1 1 199999...
+./fuzzquery: generating 5 queries from 22 words
+Queries: 
+page fast AND depth OR graph AND home 
+home first algorithm OR traversal AND Guatemala huffman 
+eniac search 
+matrix knights OR canine 
+coding tse search OR the search OR playground 
+
+
+==26415== Memcheck, a memory error detector
+==26415== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26415== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26415== Command: ./querier /thayerfs/letters-depth-6 /thayerfs/letters-index-6
+==26415== 
+Query: page fast and depth or graph and home 
+Matches 1 documents (ranked):
+score   1 doc   5: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/G.html
+-----------------------------------------------
+Query: home first algorithm or traversal and guatemala huffman 
+No documents match.
+-----------------------------------------------
+Query: eniac search 
+No documents match.
+-----------------------------------------------
+Query: matrix knights or canine 
+No documents match.
+-----------------------------------------------
+Query: coding tse search or the search or playground 
+Matches 1 documents (ranked):
+score   1 doc   1: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/index.html
+-----------------------------------------------
+==26415== 
+==26415== HEAP SUMMARY:
+==26415==     in use at exit: 0 bytes in 0 blocks
+==26415==   total heap usage: 213 allocs, 213 frees, 28,009 bytes allocated
+==26415== 
+==26415== All heap blocks were freed -- no leaks are possible
+==26415== 
+==26415== For lists of detected and suppressed errors, rerun with: -s
+==26415== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+Running toscrape-depth-1 toscrape-index-1 1 1199000...
+usage: ./fuzzquery: invalid randomSeed ''
+Queries: 
+
+
+
+
+
+Running wikipedia-depth-1 wikipedia-index-1 1 1 199001...
+./fuzzquery: generating 5 queries from 6506 words
+Queries: 
+asterisk AND beos kahn OR teach humorous 
+biotechnology precedence 
+wins AND triangle construction 
+job seemingly AND godliness AND tim OR act 
+trees AND simply stamp's hoboken AND Herminia 
+
+
+==26466== Memcheck, a memory error detector
+==26466== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==26466== Using Valgrind-3.17.0 and LibVEX; rerun with -h for copyright info
+==26466== Command: ./querier /thayerfs/wikipedia-depth-1 /thayerfs/wikipedia-index-1
+==26466== 
+Query: asterisk and beos kahn or teach humorous 
+No documents match.
+-----------------------------------------------
+Query: biotechnology precedence 
+No documents match.
+-----------------------------------------------
+Query: wins and triangle construction 
+Matches 1 documents (ranked):
+score   1 doc   4: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Dartmouth_College.html
+-----------------------------------------------
+Query: job seemingly and godliness and tim or act 
+Matches 2 documents (ranked):
+score   1 doc   6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/C_(programming_language).html
+score   1 doc   7: http://old-www.cs.dartmouth.edu/~cs50/data/tse/wikipedia/Computer_science.html
+-----------------------------------------------
+Error: bad character ''' in query.
+==26466== 
+==26466== HEAP SUMMARY:
+==26466==     in use at exit: 0 bytes in 0 blocks
+==26466==   total heap usage: 41,847 allocs, 41,847 frees, 1,071,656 bytes allocated
+==26466== 
+==26466== All heap blocks were freed -- no leaks are possible
+==26466== 
+==26466== For lists of detected and suppressed errors, rerun with: -s
+==26466== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
