@@ -97,7 +97,7 @@
 >
 > Good job making your testing script also run valgrind.
 >
-## (21/30) Functionality
+## (23/30) Functionality
 
 Refer to the [published rubric](https://www.cs.dartmouth.edu/~cs50/Labs/Lab6/#grading) for the number of points to award for progressive levels of functionality.
 
