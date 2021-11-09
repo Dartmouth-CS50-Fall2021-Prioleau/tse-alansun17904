@@ -16,9 +16,9 @@
 |Documentation|12/12|
 |Testing|6/6|
 |Code Quality|20/20|
-|Functionality|21/30|
+|Functionality|23/30|
 |Memory Usage|10/10|
-|**TOTAL**|**91**|
+|**TOTAL**|**93**|
 
 &nbsp;
 
@@ -196,25 +196,6 @@ No documents match.
 Query: home first algorithm OR traversal AND Guatemala huffman 
 Matches 1 documents (ranked):
 score    1 doc    6: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/H.html
------------------------------------------------
-```
-
-##### letters-depth-5 letters-index-5 **(-2)**
-
-**Expected:**
-
-```text
-Query: cartwheeled breadth 
-No documents match.
------------------------------------------------
-```
-
-**Actual:**
-
-```text
-Query: cartwheeled breadth 
-Matches 1 documents (ranked):
-score    1 doc    3: http://old-www.cs.dartmouth.edu/~cs50/data/tse/letters/B.html
 -----------------------------------------------
 ```
 
